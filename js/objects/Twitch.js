@@ -35,8 +35,7 @@ Twitch.prototype = {
             data = {
                 channel : channels.join(','),
                 limit : 100,
-                offset : 0,
-                r : Math.random()
+                offset : 0
             };
 
         (function streams() {
