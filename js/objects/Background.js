@@ -4,6 +4,12 @@ var Background = function () {
     'use strict';
     this.twitch = new Twitch();
 
+    try {
+        JSON.parse(localStorage.getItem('channels'));
+    } catch (e) {
+        localStorage.clear();
+    }
+
     this.channels = JSON.parse(localStorage.getItem('channels')) || [];
     this.settings = JSON.parse(localStorage.getItem('settings'));
 
@@ -20,12 +26,6 @@ var Background = function () {
     this.now = [];
 
     var self = this;
-
-    try {
-        JSON.parse(localStorage.getItem('channels'));
-    } catch (e) {
-        localStorage.clear();
-    }
 
     localStorage.setItem('version', chrome.app.getDetails().version);
 
