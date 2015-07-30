@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+
+        <script src="../libs/jquery.js"></script>
+        <script src="../libs/semantic.min.js"></script>
+        <script src="../libs/socialShare.js"></script>
+
+        <script src="../js/objects/Popup.js"></script>
+        <script src="../js/objects/Settings.js"></script>
+
+        <link type="text/css" rel="stylesheet" media="all" href="../style/semantic.min.css">
+        <link type="text/css" rel="stylesheet" media="all" href="../style/popup.css">
+
+        <script type="text/html" data-template="liveChannel">
+            <tr data-name="{name}">
+                <td>
+                    <div class="ui {favorite} card logo">
+                        <a href="{url}" target="_blank" class="ui image">
+                            <img src="{logo}">
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div class="ui {favorite} blurring card channel">
+                        <div class="ui dimmer">
+                            <div class="center content">
+                                <div class="ui small inverted transparent icon input">
+                                    <input type="text" value="{voice}" data-action="channelVoice" placeholder="Alternative voice...">
+                                    <i class="music icon" data-action="testVoice"></i>
+                                </div>
+                                <button class="ui mini inverted {favorite} icon button" data-action="channelFavorite">
+                                    <i class="star icon"></i>
+                                    Favorite
+                                </button>
+                                <button class="ui mini inverted basic icon button" data-action="channelRemove">
+                                    <i class="remove icon"></i>
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <span class="right floated">
+                                {viewers}
+                                <i class="user red icon"></i>
+                            </span>
+                            <div class="header">{status}</div>
+                            <div class="meta">live {live}</div>
+                            <div class="description">
+                                <a href="{url}" target="_blank">{display_name}</a> <span>{game}</span>
+                                <span class="right floated">
+                                    <i class="options icon" data-action="channelOptions"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </script>
+
+        <script type="text/html" data-template="offlineChannel">
+            <tr data-name="{name}">
+                <td>
+                    <div class="ui {favorite} card logo">
+                        OFFLINE
+                    </div>
+                </td>
+                <td>
+                    <div class="ui {favorite} blurring card channel">
+                        <div class="ui dimmer">
+                            <div class="center content">
+                                <div class="ui small inverted transparent icon input">
+                                    <input type="text" value="{voice}" data-action="channelVoice" placeholder="Alternative voice...">
+                                    <i class="music icon" data-action="testVoice"></i>
+                                </div>
+                                <button class="ui mini inverted {favorite} icon button" data-action="channelFavorite">
+                                    <i class="star icon"></i>
+                                    Favorite
+                                </button>
+                                <button class="ui mini inverted basic icon button" data-action="channelRemove">
+                                    <i class="remove icon"></i>
+                                    Remove
+                                </button>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div class="description">
+                                <a href="http://twitch.tv/{name}" target="_blank">{name}</a>
+                                <span class="right floated">
+                                    <i class="options icon" data-action="channelOptions"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </script>
+
+        <script type="text/html" data-template="settingsMessage">
+            <h4 class="ui {color} header notice">
+                <i class="{icon} icon"></i>{text}
+            </h4>
+        </script>
+    </head>
+
+    <body class="ui blurring">
+
+        <div class="channels">
+            <div class="ui segment loading live">
+                <h2 class="ui grey center aligned header emptyMessage">
+                    <div class="content">
+                        Live
+                        <div class="sub header">Empty</div>
+                    </div>
+                </h2>
+                <table></table>
+            </div>
+
+            <div class="ui segment offline">
+                <h2 class="ui grey center aligned header emptyMessage">
+                    <div class="content">
+                        Offline
+                        <div class="sub header">Empty</div>
+                    </div>
+                </h2>
+                <table></table>
+            </div>
+        </div>
+
+        <div class="ui inverted dimmer settings">
+            <div class="content">
+                <div class="center">
+
+                    <h4 class="ui horizontal divider header">
+                        <i class="settings icon"></i>
+                        Settings
+                    </h4>
+
+                    <div class="ui segment">
+                        <div class="ui pointing secondary menu">
+                            <a class="active item" data-tab="addChannel">Add channel</a>
+                            <a class="item" data-tab="importChannels">Import following</a>
+                            <a class="item" data-tab="notifications">Notifications</a>
+                        </div>
+                        <div class="ui active tab" data-tab="addChannel">
+                            <div class="ui action input">
+                                <input type="text" placeholder="Channel name...">
+                                <button class="ui violet button" data-action="addChannel">Add</button>
+                            </div>
+                        </div>
+                        <div class="ui tab" data-tab="importChannels">
+                            <div class="ui action input">
+                                <input type="text" placeholder="User name...">
+                                <button class="ui violet button" data-action="importChannels">Import</button>
+                            </div>
+                        </div>
+                        <div class="ui tab" data-tab="notifications">
+                            <form class="ui form">
+                                <div class="field">
+                                    <div class="ui toggle checkbox" data-name="enableNotifications">
+                                        <input type="checkbox">
+                                        <label>Desktop Notifications</label>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="ui toggle checkbox" data-name="enableVoice">
+                                        <input type="checkbox">
+                                        <label>Voice Notifications:</label>
+                                    </div>
+                                    <div class="ui dropdown" data-name="voice">
+                                        <div class="text">Google En</div>
+                                        <i class="dropdown icon"></i>
+                                        <div class="menu">
+                                            <div class="item" data-value="googleEn">Google En</div>
+                                            <div class="item" data-value="track1">Track 1</div>
+                                            <div class="item" data-value="track2">Track 2</div>
+                                            <div class="item" data-value="track3">Track 3</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="shareButtons">
+                        <button class="ui circular vk share icon small button">
+                            <i class="vk icon"></i>
+                        </button>
+                        <button class="ui circular facebook share icon small button">
+                            <i class="facebook icon"></i>
+                        </button>
+                        <button class="ui circular twitter share icon small button">
+                            <i class="twitter icon"></i>
+                        </button>
+                        <button class="ui circular google plus share icon small button">
+                            <i class="google plus icon"></i>
+                        </button>
+                        <a class="ui circular grey github icon small button" href="https://github.com/bipycxp/TwitchLive" target="_blank">
+                            <i class="github icon"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="ui violet inverted two item menu bottom">
+            <a class="active item" data-action="live">
+                <i class="record icon"></i>
+                Live
+                <div class="floating ui label counter"></div>
+            </a>
+            <a class="item" data-action="offline">
+                <i class="twitch icon"></i>
+                Offline
+                <div class="floating ui label counter"></div>
+            </a>
+            <a class="icon item" data-action="settings">
+                <i class="setting icon"></i>
+            </a>
+        </div>
+
+    </body>
+
+    <script src="../js/popup.js"></script>
+
+</html>

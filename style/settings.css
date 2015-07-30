@@ -1,0 +1,51 @@
+.settings .divider.header {
+    width: 350px;
+    margin-left: 50px;
+}
+
+.settings .segment {
+    width: 390px;
+    height: 170px;
+    margin-left: 30px;
+    color: rgba(0,0,0,.87);
+}
+
+.settings .ui.pointing.menu {
+    width: 356px;
+    margin-right: 3px;
+}
+
+.ui.toggle.checkbox input:checked~.box:before, .ui.toggle.checkbox input:checked~label:before {
+    background-color: #6435c9;
+}
+
+.settings .tab {
+    padding-top: 25px;
+}
+
+.settings [data-tab=notifications] {
+    text-align: left;
+    padding: 15px 20px;
+}
+
+.settings .dropdown .text {
+    font-weight: 600;
+}
+
+.settings .notice {
+    display: none;
+    margin-top: 10px;
+}
+
+.settings .shareButtons {
+    display: inline;
+}
+
+.settings .ui.dropdown {
+    text-transform: capitalize;
+}
+
+.settings > .content > .center {
+    vertical-align: top;
+    padding-top: 30px;
+}
