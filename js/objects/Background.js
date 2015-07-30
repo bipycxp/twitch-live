@@ -53,13 +53,13 @@ Background.prototype = {
         this.twitch.getStreams(channels);
 
         $(document)
-            .one('successGetStreams', function () {
+            .unbind('successGetStreams').one('successGetStreams', function () {
                 chrome.runtime.sendMessage({
                     message : 'successGetStreams',
                     streams : self.twitch.streams
                 });
             })
-            .one('errorGetStreams', function () {
+            .unbind('errorGetStreams').one('errorGetStreams', function () {
                 chrome.runtime.sendMessage({
                     message : 'errorGetStreams'
                 });
@@ -81,7 +81,7 @@ Background.prototype = {
         this.twitch.getUserFollows(user);
 
         $(document)
-            .one('successGetUserFollows', function () {
+            .unbind('successGetUserFollows').one('successGetUserFollows', function () {
                 var channelName,
                     i,
                     pushedCount = 0;
@@ -117,7 +117,7 @@ Background.prototype = {
                     });
                 }
             })
-            .one('errorGetUserFollows', function () {
+            .unbind('errorGetUserFollows').one('errorGetUserFollows', function () {
                 chrome.runtime.sendMessage({
                     message : 'errorImportUserFollows'
                 });
@@ -173,7 +173,7 @@ Background.prototype = {
         this.twitch.checkChannel(channel);
 
         $(document)
-            .one('successCheckChannel', function () {
+            .unbind('successCheckChannel').one('successCheckChannel', function () {
                 self.channels.push({
                     name : channel
                 });
@@ -190,7 +190,7 @@ Background.prototype = {
                     message : 'successAddChannel'
                 });
             })
-            .one('errorCheckChannel', function () {
+            .unbind('errorCheckChannel').one('errorCheckChannel', function () {
                 chrome.runtime.sendMessage({
                     message : 'errorAddChannel'
                 });
@@ -258,7 +258,7 @@ Background.prototype = {
         }
 
         $(document)
-            .one('successGetStreams', function () {
+            .unbind('successGetStreams').one('successGetStreams', function () {
                 var streams = [],
                     voices = [],
                     channel;
@@ -320,7 +320,6 @@ Background.prototype = {
 
                 self.now = streams;
             });
-
     }
 
 };
