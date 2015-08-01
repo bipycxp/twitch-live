@@ -97,17 +97,17 @@ Settings.prototype = {
         elements.ui.dropdown
             .dropdown({
                 onChange : function (value, text, element) {
-                    chrome.runtime.sendMessage({
-                        message : 'testVoice',
-                        voice : 'hello',
-                        type : $(element).data('value')
-                    });
-
                     element = $(element).parents('.ui.dropdown');
 
                     self.settings[element.data('name')] = value;
 
                     self.save();
+
+                    chrome.runtime.sendMessage({
+                        message : 'testVoice',
+                        voice : self.settings.voice === 'googleEn' ? 'hello' : 'привет',
+                        type : $(element).data('value')
+                    });
                 }
             });
         /*jslint unparam: false*/

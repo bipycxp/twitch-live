@@ -233,6 +233,21 @@ Background.prototype = {
             message.text = text;
 
             speechSynthesis.speak(message);
+        } else if (type === 'googleRu') {
+            if (Array.isArray(voices)) {
+                if (voices.length >= 3) {
+                    text = voices[0] + ',' + voices[1] + ' и другие онлайн';
+                } else if (voices.length === 2) {
+                    text = voices[0] + ' и ' + voices[1] + ' онлайн';
+                } else {
+                    text = voices[0] + ' онлайн';
+                }
+            } else {
+                text = voices;
+            }
+
+            $('<audio autoplay><source src="http://translate.google.com.ua/translate_tts?tl=ru&client=twitchLive&q=' + text + '"></audio>')
+                .appendTo('body');
         } else {
             $('<audio autoplay><source src="/audio/' + type + '.mp3"></audio>')
                 .appendTo('body');

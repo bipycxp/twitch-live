@@ -180,12 +180,12 @@ Popup.prototype = {
                 var dimmer = $(e.currentTarget).parents('tr').find('.ui.dimmer'),
                     settings = self.settings.settings;
 
-                if (settings.voice !== 'googleEn' || !settings.enableVoice) {
+                if ($.inArray(settings.voice, ['googleEn', 'googleRu']) === -1  || !settings.enableVoice) {
                     dimmer.find('[data-action=channelVoice]').parent()
                         .hide();
                 }
 
-                if (settings.enableVoice && settings.voice === 'googleEn') {
+                if (settings.enableVoice && $.inArray(settings.voice, ['googleEn', 'googleRu']) !== -1) {
                     dimmer.find('[data-action=channelVoice]').parent()
                         .show();
                 }
