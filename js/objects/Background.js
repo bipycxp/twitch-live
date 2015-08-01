@@ -34,6 +34,10 @@ var Background = function () {
     setInterval(function () {
         self.notification();
     }, 5000);
+
+    chrome.notifications.onClicked.addListener(function (id) {
+        window.open('http://twitch.tv/' + id.replace(/^\d+\{tl\}/, ''));
+    });
 };
 
 Background.prototype = {
@@ -309,10 +313,6 @@ Background.prototype = {
                         }
                     }
                 }
-
-                chrome.notifications.onClicked.addListener(function (id) {
-                    window.open('http://twitch.tv/' + id.replace(/^\d+\{tl\}/, ''));
-                });
 
                 if (voices.length) {
                     self.voice(voices);
