@@ -1,0 +1,53 @@
+{
+  "name": "twitch-live",
+  "version": "3.0.0",
+  "description": "Browser extension with notifications to check when does your favorite Twitch.tv channels are online.",
+  "scripts": {
+    "lint:js": "eslint ./app/js webpack.config.js --ext js,jsx",
+    "start": "webpack-dev-server --content-base ./app --inline --hot -d --host 0.0.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bipycxp/twitch-live.git"
+  },
+  "keywords": [
+    "twitch",
+    "live",
+    "extension"
+  ],
+  "author": "Andrey Klymets <bipycxp@gmail.com> (http://github.com/bipycxp)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bipycxp/twitch-live/issues"
+  },
+  "homepage": "https://github.com/bipycxp/twitch-live",
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.14.0",
+    "babel-eslint": "^6.1.2",
+    "babel-loader": "^6.0.1",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-runtime": "^6.12.0",
+    "babel-polyfill": "^6.13.0",
+    "babel-preset-es2015": "^6.0.15",
+    "babel-preset-react": "^6.0.15",
+    "babel-preset-stage-0": "^6.0.15",
+    "babel-preset-stage-2": "^6.13.0",
+    "babel-regenerator-runtime": "^6.5.0",
+    "babel-register": "^6.14.0",
+    "babel-runtime": "^6.11.6",
+    "eslint": "^3.4.0",
+    "eslint-config-standard": "^6.0.0",
+    "eslint-config-standard-jsx": "^3.0.0",
+    "eslint-config-standard-react": "^4.0.0",
+    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-promise": "^2.0.1",
+    "eslint-plugin-react": "^6.2.0",
+    "eslint-plugin-standard": "^2.0.0",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "react-hot-loader": "^1.3.0",
+    "webpack": "^1.12.2",
+    "webpack-dev-server": "^1.12.1"
+  }
+}
