@@ -1,0 +1,11 @@
+.list {
+  border: 1px solid black;
+
+  .live {
+    border: 1px solid red;
+  }
+
+  .offline {
+    border: 1px solid grey;
+  }
+}

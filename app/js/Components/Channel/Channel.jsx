@@ -1,5 +1,9 @@
 import React from 'react'
 
+import classNames from 'classnames/bind'
+import styles from './channel.scss'
+const cx = classNames.bind(styles)
+
 export default class Channel extends React.Component {
   constructor (props) {
     super(props)
@@ -18,10 +22,12 @@ export default class Channel extends React.Component {
   }
 
   render () {
+    let { favorite } = this.state
+
     return (
-      <div className={'channel ' + this.state.favorite ? 'favorite' : ''}>
+      <div className={cx('channel', { favorite })}>
         {this.props.children}
-        <div className="options" onClick={this.handleOptionsClick} />
+        <div className={cx('options')} onClick={this.handleOptionsClick} />
       </div>
     )
   }

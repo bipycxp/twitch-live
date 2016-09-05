@@ -1,5 +1,9 @@
 import React from 'react'
 
+import classNames from 'classnames/bind'
+import styles from './item.scss'
+const cx = classNames.bind(styles)
+
 export default class Item extends React.Component {
   constructor (props) {
     super(props)
@@ -24,9 +28,9 @@ export default class Item extends React.Component {
     let { count, active } = this.state
 
     return (
-      <div className={'item ' + active ? 'active' : ''} onClick={this.handleClick}>
+      <div className={cx('item', { active })} onClick={this.handleClick}>
         {this.props.children}
-        {count ? (<div className="count">{count}</div>) : ''}
+        {count ? (<div className={cx('count')}>{count}</div>) : ''}
       </div>
     )
   }

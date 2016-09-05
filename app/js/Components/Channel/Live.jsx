@@ -2,6 +2,10 @@ import React from 'react'
 
 import Channel from './Channel'
 
+import classNames from 'classnames/bind'
+import styles from './channel.scss'
+const cx = classNames.bind(styles)
+
 export default class LiveChannel extends React.Component {
   constructor (props) {
     super(props)
@@ -19,17 +23,17 @@ export default class LiveChannel extends React.Component {
 
     return (
       <Channel favorite={favorite}>
-        <div className="picture">
+        <div className={cx('picture')}>
           <img src={picture} onClick={this.handlePictureClick} />
         </div>
-        <div className="info">
-          <div className="status">{status}</div>
-          <div className="viewers">
+        <div className={cx('info')}>
+          <div className={cx('status')}>{status}</div>
+          <div className={cx('viewers')}>
             {viewers}
-            <i className="user red icon" />
+            <i className={cx('user', 'red', 'icon')} />
           </div>
-          <div className="live">live {liveTime}</div>
-          <div className="description">
+          <div className={cx('live')}>live {liveTime}</div>
+          <div className={cx('description')}>
             <a href={link} target="_blank">{name}</a>
             <span>{game}</span>
           </div>
@@ -51,4 +55,3 @@ LiveChannel.propTypes = {
     viewers: React.PropTypes.number.isRequired
   }).isRequired
 }
-

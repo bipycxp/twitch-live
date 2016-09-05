@@ -3,6 +3,10 @@ import React from 'react'
 import LiveChannel from '../Live'
 import OfflineChannel from '../Offline'
 
+import classNames from 'classnames/bind'
+import styles from './list.scss'
+const cx = classNames.bind(styles)
+
 export default class List extends React.Component {
   constructor (props) {
     super(props)
@@ -59,12 +63,12 @@ export default class List extends React.Component {
     }
 
     return (
-      <div className="list">
+      <div className={cx('list')}>
         {[ 'live', 'offline' ].map(type => {
           let TypedChannel = mapping[type]
 
           return (
-            <section key={type} className={type}>
+            <section key={type} className={cx(type)}>
               {this.state[type].map(channel => (<TypedChannel key={channel.data.id} {...channel} />))}
             </section>
           )

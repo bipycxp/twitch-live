@@ -2,6 +2,10 @@ import React from 'react'
 
 import Channel from './Channel'
 
+import classNames from 'classnames/bind'
+import styles from './channel.scss'
+const cx = classNames.bind(styles)
+
 export default class OfflineChannel extends React.Component {
   render () {
     let { data, favorite } = this.props
@@ -9,11 +13,11 @@ export default class OfflineChannel extends React.Component {
 
     return (
       <Channel favorite={favorite}>
-        <div className="picture">
+        <div className={cx('picture')}>
           <div>OFFLINE</div>
         </div>
-        <div className="info">
-          <div className="description">
+        <div className={cx('info')}>
+          <div className={cx('description')}>
             <a href={link} target="_blank">{name}</a>
           </div>
         </div>
@@ -29,4 +33,3 @@ OfflineChannel.propTypes = {
     link: React.PropTypes.string.isRequired
   }).isRequired
 }
-
