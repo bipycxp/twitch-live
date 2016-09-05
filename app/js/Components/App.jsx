@@ -1,6 +1,6 @@
 import React from 'react'
 
-import List from './Channel/List'
+import ChannelsList from '../Containers/ChannelsList'
 import Menu from './Menu'
 
 import classNames from 'classnames/bind'
@@ -11,7 +11,7 @@ export default class App extends React.Component {
   render () {
     return (
       <div className={cx('app')}>
-        <List />
+        <ChannelsList />
         <Menu />
       </div>
     )
