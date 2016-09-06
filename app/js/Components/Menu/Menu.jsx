@@ -7,20 +7,65 @@ import styles from './menu.scss'
 const cx = classNames.bind(styles)
 
 export default class Menu extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      items: [
+        {
+          name: 'live',
+          active: true
+        },
+        {
+          name: 'offline'
+        },
+        {
+          name: 'settings',
+          title: 'Sets'
+        }
+      ]
+    }
+
+    this.renderItem = this.renderItem.bind(this)
+  }
+
+  /**
+   * Set new active item.
+   *
+   * @param {string} name - Item name
+   */
+  setActiveItem (name) {
+    let items = this.state.items.map(item => ({...item, active: name === item.name}))
+    this.setState({ items })
+  }
+
+  /**
+   * Item onClick handler.
+   *
+   * @param {MenuItem} item
+   */
+  handleItemClick (item) {
+    let { name, onClick } = item
+
+    this.setActiveItem(name)
+    onClick && onClick()
+  }
+
+  /**
+   * @param {MenuItem} item
+   * @return {XML}
+   */
+  renderItem (item) {
+    return (<Item key={item.name} {...item} onClick={this.handleItemClick.bind(this, item)} />)
+  }
+
+  /**
+   * @return {XML}
+   */
   render () {
     return (
       <div className={cx('menu')}>
-        <Item onClick={() => console.log('Live')}>
-          <i className={cx('record', 'icon')} />
-          Live
-        </Item>
-        <Item onClick={() => console.log('Offline')}>
-          <i className={cx('twitch', 'icon')} />
-          Offline
-        </Item>
-        <Item onClick={() => console.log('Settings')}>
-          Settings
-        </Item>
+        {this.state.items.map(this.renderItem)}
       </div>
     )
   }
