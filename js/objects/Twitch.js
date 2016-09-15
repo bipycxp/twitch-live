@@ -15,6 +15,8 @@ Number.prototype.toHms = function (s) {
     return (hours + minutes + seconds).trim();
 };
 
+var client_id = 'YOUR_CLIENT_ID';
+
 var Twitch = function () {
     'use strict';
     this.userFollows = [];
@@ -43,6 +45,9 @@ Twitch.prototype = {
                 url : 'https://api.twitch.tv/kraken/streams',
                 data : data,
                 type : 'GET',
+                beforeSend: function (request) {
+                    request.setRequestHeader('Client-ID', client_id);
+                },
                 success : function (response) {
                     self.streams = self.streams.concat(response.streams);
 
@@ -104,6 +109,9 @@ Twitch.prototype = {
                 url : 'https://api.twitch.tv/kraken/users/' + user + '/follows/channels',
                 data : data,
                 type : 'GET',
+                beforeSend: function (request) {
+                    request.setRequestHeader('Client-ID', client_id);
+                },
                 success : function (response) {
                     self.userFollows = self.userFollows.concat(response.follows);
 
@@ -141,6 +149,9 @@ Twitch.prototype = {
         $.ajax({
             url : 'https://api.twitch.tv/kraken/channels/' + channel,
             type : 'GET',
+            beforeSend: function (request) {
+                request.setRequestHeader('Client-ID', client_id);
+            },
             success : function () {
                 $(document)
                     .trigger('successCheckChannel');
