@@ -1,9 +1,69 @@
+@import "../variables";
+
+$infoHeight: 55px;
+$infoPadding: 5px;
+$pictureSize: $infoHeight + $infoPadding * 2;
+$infoWidth: $appWidth - $pictureSize - $infoPadding * 1.5 - 30px;
+
 .channel {
-  margin: 10px;
+  margin-bottom: 10px;
+
+  .picture {
+    float: left;
+    background: white;
+    color: rgba(0, 0, 0, 0.6);
+    text-align: center;
+    font-size: 0.9em;
+    line-height: 5em;
+
+    &,
+    img {
+      width: $pictureSize;
+      height: $pictureSize;
+    }
+  }
 
   .info {
-    .status {
-      font-weight: bold;
+    width: $infoWidth;
+    height: $infoHeight;
+    padding: $infoPadding $infoPadding * 1.5;
+    margin-left: $pictureSize + 10px;
+    background: #fff;
+
+    .viewers {
+      float: right;
+      line-height: 1.5em;
     }
+
+    .status {
+      width: 260px;
+      font: {
+        size: 1.2em;
+        weight: bold;
+      }
+    }
+
+    .live {
+      font-size: 0.95em;
+      color: rgba(0, 0, 0, 0.4);
+      line-height: 1.3em;
+    }
+
+    .description {
+      line-height: 1.4em;
+
+      a::after {
+        content: " ";
+      }
+    }
+  }
+
+  &.offline .info .description {
+    line-height: 3.8em;
+  }
+
+  .picture,
+  .info {
+    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
   }
 }

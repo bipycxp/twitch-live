@@ -23,10 +23,11 @@ export default class Channel extends React.Component {
 
   render () {
     let { favorite } = this.state
+    let { children, className } = this.props
 
     return (
-      <div className={cx('channel', { favorite })}>
-        {this.props.children}
+      <div className={cx('channel', className, { favorite })}>
+        {children}
         <div className={cx('options')} onClick={this.handleOptionsClick} />
       </div>
     )
@@ -34,6 +35,7 @@ export default class Channel extends React.Component {
 }
 
 Channel.propTypes = {
+  className: React.PropTypes.string,
   favorite: React.PropTypes.bool,
   children: React.PropTypes.oneOfType([
     React.PropTypes.arrayOf(React.PropTypes.node),

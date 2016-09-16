@@ -12,9 +12,9 @@ export default class OfflineChannel extends React.Component {
     let { name, link } = data
 
     return (
-      <Channel favorite={favorite}>
+      <Channel className="offline" favorite={favorite}>
         <div className={cx('picture')}>
-          <div>OFFLINE</div>
+          OFFLINE
         </div>
         <div className={cx('info')}>
           <div className={cx('description')}>

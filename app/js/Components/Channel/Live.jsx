@@ -22,16 +22,16 @@ export default class LiveChannel extends React.Component {
     let { game, link, liveTime, name, picture, status, viewers } = data
 
     return (
-      <Channel favorite={favorite}>
+      <Channel className="live" favorite={favorite}>
         <div className={cx('picture')}>
           <img src={picture} onClick={this.handlePictureClick} />
         </div>
         <div className={cx('info')}>
-          <div className={cx('status')}>{status}</div>
           <div className={cx('viewers')}>
             {viewers}
             <i className={cx('user', 'red', 'icon')} />
           </div>
+          <div className={cx('status')}>{status}</div>
           <div className={cx('live')}>live {liveTime}</div>
           <div className={cx('description')}>
             <a href={link} target="_blank">{name}</a>

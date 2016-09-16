@@ -1,7 +1,9 @@
+@import "../variables";
+
 .menu {
   display: flex;
   width: 100%;
   float: left;
-  background-color: #6435c9;
+  background-color: $purple;
   color: #fff;
 }
