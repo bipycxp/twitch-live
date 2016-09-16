@@ -20,6 +20,7 @@ module.exports = {
   },
   module: {
     loaders: [
+      { test: /\.svg$/, loaders: [ 'babel', 'svg-react' ] },
       { test: /\.js$/, include: js, loader: 'babel' },
       { test: /\.jsx$/, include: js, loaders: [ 'react-hot', 'babel' ] },
       { test: /\.scss$/, loaders: [ 'style', cssLoader, 'postcss', sassLoader ] }

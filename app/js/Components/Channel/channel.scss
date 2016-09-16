@@ -33,6 +33,12 @@ $infoWidth: $appWidth - $pictureSize - $infoPadding * 1.5 - 30px;
     .viewers {
       float: right;
       line-height: 1.5em;
+
+      .icon.user {
+        height: 1em;
+        margin: 0 0 -1px 3px;
+        fill: $red;
+      }
     }
 
     .status {

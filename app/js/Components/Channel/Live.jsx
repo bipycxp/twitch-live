@@ -2,6 +2,8 @@ import React from 'react'
 
 import Channel from './Channel'
 
+import Icon from '../Icon'
+
 import classNames from 'classnames/bind'
 import styles from './channel.scss'
 const cx = classNames.bind(styles)
@@ -29,7 +31,7 @@ export default class LiveChannel extends React.Component {
         <div className={cx('info')}>
           <div className={cx('viewers')}>
             {viewers}
-            <i className={cx('user', 'red', 'icon')} />
+            <Icon src={require('./Images/user.svg')} className={cx('icon', 'user')} />
           </div>
           <div className={cx('status')}>{status}</div>
           <div className={cx('live')}>live {liveTime}</div>

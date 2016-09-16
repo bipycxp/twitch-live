@@ -59,6 +59,7 @@
     "style-loader": "^0.13.1",
     "stylelint": "^7.2.0",
     "stylelint-config-idiomatic-order": "^2.0.0",
+    "svg-react-loader": "^0.3.7",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.1"
   }
