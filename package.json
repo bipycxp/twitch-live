@@ -6,7 +6,8 @@
     "lint": "npm run lint:js && npm run lint:scss",
     "lint:js": "eslint ./app/js webpack.config.js --ext js,jsx",
     "lint:scss": "stylelint 'app/**/*.scss' -s scss",
-    "start": "webpack-dev-server --content-base ./app --inline --hot -d --host 0.0.0.0"
+    "start": "webpack-dev-server --content-base ./app --inline --hot -d --host 0.0.0.0",
+    "test": "NODE_PATH=./app/js ava -v -r babel-register"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   "dependencies": {},
   "devDependencies": {
     "autoprefixer": "^6.4.1",
+    "ava": "^0.16.0",
     "babel-core": "^6.14.0",
     "babel-eslint": "^6.1.2",
     "babel-loader": "^6.0.1",

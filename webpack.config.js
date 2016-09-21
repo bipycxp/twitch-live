@@ -8,10 +8,9 @@ var cssLoader = 'css?modules&sourceMap&localIdentName=[name]__[local]___[hash:ba
 var sassLoader = 'sass?sourceMap'
 
 module.exports = {
-  context: __dirname,
   devtool: 'eval',
   entry: {
-    app: [ 'babel-regenerator-runtime', 'babel-polyfill', path.join(js, './app') ]
+    app: [ 'babel-regenerator-runtime', 'babel-polyfill', path.join(js, './app.jsx') ]
   },
   output: {
     filename: 'bundle.js',
