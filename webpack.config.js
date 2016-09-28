@@ -10,7 +10,7 @@ var sassLoader = 'sass?sourceMap'
 module.exports = {
   devtool: 'eval',
   entry: {
-    app: [ 'babel-regenerator-runtime', 'babel-polyfill', path.join(js, './app.jsx') ]
+    app: [ 'babel-regenerator-runtime', 'babel-polyfill', 'whatwg-fetch', path.join(js, './app.jsx') ]
   },
   output: {
     filename: 'bundle.js',
@@ -19,10 +19,10 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.svg$/, loaders: [ 'babel', 'svg-react' ] },
       { test: /\.js$/, include: js, loader: 'babel' },
       { test: /\.jsx$/, include: js, loaders: [ 'react-hot', 'babel' ] },
-      { test: /\.scss$/, loaders: [ 'style', cssLoader, 'postcss', sassLoader ] }
+      { test: /\.scss$/, loaders: [ 'style', cssLoader, 'postcss', sassLoader ] },
+      { test: /\.svg$/, loaders: [ 'babel', 'svg-react' ] }
     ]
   },
   postcss: [ autoprefixer({ browsers: [ '> 5%' ] }) ],
