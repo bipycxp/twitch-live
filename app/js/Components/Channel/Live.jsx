@@ -1,8 +1,8 @@
 import React from 'react'
 import Paper from 'material-ui/Paper'
+import ActionAccountCircle from 'material-ui/svg-icons/action/account-circle'
 
 import Channel from './Channel'
-import Icon from '../Icon'
 
 import classNames from 'classnames/bind'
 import styles from './channel.scss'
@@ -31,7 +31,7 @@ export default class LiveChannel extends React.Component {
         <Paper className={cx('info')} rounded={false}>
           <div className={cx('viewers')}>
             {viewers}
-            <Icon src={require('./Images/user.svg')} className={cx('icon', 'user')} />
+            <ActionAccountCircle className={cx('icon')} />
           </div>
           <div className={cx('status')}>{status}</div>
           <div className={cx('live')}>live {liveTime}</div>

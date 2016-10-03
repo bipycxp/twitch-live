@@ -22,7 +22,6 @@ $infoWidth: $appWidth - $height - 20px;
   }
 
   .info {
-    width: $infoWidth;
     height: $height;
     padding: $infoPadding $infoPadding * 1.5;
     margin-left: $height + 10px;
@@ -30,11 +29,13 @@ $infoWidth: $appWidth - $height - 20px;
     .viewers {
       float: right;
       line-height: 1.5em;
+      color: $red;
 
-      .icon.user {
-        height: 1em;
-        margin: 0 0 -1px 3px;
-        fill: $red;
+      .icon {
+        width: 1.2em !important;
+        height: 1.2em !important;
+        margin: 0 0 -3px 3px;
+        fill: $red !important;
       }
     }
 
