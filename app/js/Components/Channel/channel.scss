@@ -1,16 +1,14 @@
 @import "../variables";
 
-$infoHeight: 55px;
+$height: 65px;
 $infoPadding: 5px;
-$pictureSize: $infoHeight + $infoPadding * 2;
-$infoWidth: $appWidth - $pictureSize - $infoPadding * 1.5 - 30px;
+$infoWidth: $appWidth - $height - 20px;
 
 .channel {
-  margin-bottom: 10px;
+  margin: 5px;
 
   .picture {
     float: left;
-    background: white;
     color: rgba(0, 0, 0, 0.6);
     text-align: center;
     font-size: 0.9em;
@@ -18,17 +16,16 @@ $infoWidth: $appWidth - $pictureSize - $infoPadding * 1.5 - 30px;
 
     &,
     img {
-      width: $pictureSize;
-      height: $pictureSize;
+      width: $height;
+      height: $height;
     }
   }
 
   .info {
     width: $infoWidth;
-    height: $infoHeight;
+    height: $height;
     padding: $infoPadding $infoPadding * 1.5;
-    margin-left: $pictureSize + 10px;
-    background: #fff;
+    margin-left: $height + 10px;
 
     .viewers {
       float: right;
@@ -66,10 +63,5 @@ $infoWidth: $appWidth - $pictureSize - $infoPadding * 1.5 - 30px;
 
   &.offline .info .description {
     line-height: 3.8em;
-  }
-
-  .picture,
-  .info {
-    box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
   }
 }
