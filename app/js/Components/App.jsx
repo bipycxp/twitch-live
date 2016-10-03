@@ -8,11 +8,30 @@ import styles from './app.scss'
 const cx = classNames.bind(styles)
 
 export default class App extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      slideIndex: 0
+    }
+
+    this.handleSlideChange = this.handleSlideChange.bind(this)
+  }
+
+  handleSlideChange (slideIndex) {
+    this.setState({ slideIndex })
+  }
+
   render () {
+    const slideProps = {
+      slideIndex: this.state.slideIndex,
+      handleChange: this.handleSlideChange
+    }
+
     return (
       <div className={cx('app')}>
-        <ChannelsList />
-        <Menu />
+        <ChannelsList {...slideProps} />
+        <Menu {...slideProps} />
       </div>
     )
   }

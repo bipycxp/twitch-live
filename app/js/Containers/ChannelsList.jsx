@@ -53,6 +53,11 @@ export default class ChannelsList extends React.Component {
   }
 
   render () {
-    return (<List channels={this.state.channels} />)
+    return (<List {...this.props} {...this.state} />)
   }
+}
+
+ChannelsList.propTypes = {
+  handleChange: React.PropTypes.func.isRequired,
+  slideIndex: React.PropTypes.number.isRequired
 }

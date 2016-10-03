@@ -1,4 +1,5 @@
 import React from 'react'
+import SwipeableViews from 'react-swipeable-views'
 
 import LiveChannel from '../Live'
 import OfflineChannel from '../Offline'
@@ -9,24 +10,17 @@ const cx = classNames.bind(styles)
 
 export default class List extends React.Component {
   render () {
-    let { channels } = this.props
-    let mapping = {
-      live: LiveChannel,
-      offline: OfflineChannel
-    }
+    const { handleChange, slideIndex, channels: { live, offline } } = this.props
 
     return (
-      <div className={cx('list')}>
-        {Object.keys(mapping).map((type) => {
-          let TypedChannel = mapping[type]
-
-          return (
-            <section key={type} className={cx(type)}>
-              {channels[type].map(channel => (<TypedChannel key={channel.data.id} {...channel} />))}
-            </section>
-          )
-        })}
-      </div>
+      <SwipeableViews className={cx('list')} index={slideIndex} onChangeIndex={handleChange}>
+        <div className={cx('live')}>
+          {live.map(channel => (<LiveChannel key={channel.data.id} {...channel} />))}
+        </div>
+        <div className={cx('offline')}>
+          {offline.map(channel => (<OfflineChannel key={channel.data.id} {...channel} />))}
+        </div>
+      </SwipeableViews>
     )
   }
 }
@@ -35,5 +29,7 @@ List.propTypes = {
   channels: React.PropTypes.shape({
     live: React.PropTypes.array.isRequired,
     offline: React.PropTypes.array.isRequired
-  }).isRequired
+  }).isRequired,
+  handleChange: React.PropTypes.func.isRequired,
+  slideIndex: React.PropTypes.number.isRequired
 }
