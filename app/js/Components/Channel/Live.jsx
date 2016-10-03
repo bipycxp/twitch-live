@@ -1,7 +1,7 @@
 import React from 'react'
+import Paper from 'material-ui/Paper'
 
 import Channel from './Channel'
-
 import Icon from '../Icon'
 
 import classNames from 'classnames/bind'
@@ -24,11 +24,11 @@ export default class LiveChannel extends React.Component {
     let { game, link, liveTime, name, picture, status, viewers } = data
 
     return (
-      <Channel className="live" favorite={favorite}>
-        <div className={cx('picture')}>
+      <Channel className={cx('live')} favorite={favorite}>
+        <Paper className={cx('picture')} rounded={false}>
           <img src={picture} onClick={this.handlePictureClick} />
-        </div>
-        <div className={cx('info')}>
+        </Paper>
+        <Paper className={cx('info')} rounded={false}>
           <div className={cx('viewers')}>
             {viewers}
             <Icon src={require('./Images/user.svg')} className={cx('icon', 'user')} />
@@ -39,7 +39,7 @@ export default class LiveChannel extends React.Component {
             <a href={link} target="_blank">{name}</a>
             <span>{game}</span>
           </div>
-        </div>
+        </Paper>
       </Channel>
     )
   }

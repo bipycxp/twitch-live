@@ -1,4 +1,5 @@
 import React from 'react'
+import Paper from 'material-ui/Paper'
 
 import Channel from './Channel'
 
@@ -12,15 +13,15 @@ export default class OfflineChannel extends React.Component {
     let { name, link } = data
 
     return (
-      <Channel className="offline" favorite={favorite}>
-        <div className={cx('picture')}>
+      <Channel className={cx('offline')} favorite={favorite}>
+        <Paper className={cx('picture')} rounded={false}>
           OFFLINE
-        </div>
-        <div className={cx('info')}>
+        </Paper>
+        <Paper className={cx('info')} rounded={false}>
           <div className={cx('description')}>
             <a href={link} target="_blank">{name}</a>
           </div>
-        </div>
+        </Paper>
       </Channel>
     )
   }
