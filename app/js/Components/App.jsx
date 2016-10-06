@@ -1,4 +1,5 @@
 import React from 'react'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 import ChannelsList from '../Containers/ChannelsList'
 import Menu from './Menu'
@@ -18,6 +19,17 @@ export default class App extends React.Component {
     this.handleSlideChange = this.handleSlideChange.bind(this)
   }
 
+  getChildContext () {
+    const muiTheme = getMuiTheme({
+      palette: {
+        primary1Color: '#6441a5',
+        accent1Color: 'white'
+      }
+    })
+
+    return { muiTheme }
+  }
+
   handleSlideChange (slideIndex) {
     this.setState({ slideIndex })
   }
@@ -35,4 +47,8 @@ export default class App extends React.Component {
       </div>
     )
   }
+}
+
+App.childContextTypes = {
+  muiTheme: React.PropTypes.object.isRequired
 }
