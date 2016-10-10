@@ -2,6 +2,7 @@ import test from 'ava'
 import sinon from 'sinon'
 
 import Twitch from 'Twitch'
+const ELEMENTS_LIMIT_PER_REQ = 100
 
 const blocks = [
   {
@@ -12,7 +13,8 @@ const blocks = [
     },
     expected: {
       followsCount: 10,
-      fetchCallsCount: 1
+      fetchCallsCount: 1,
+      pagingOffset: [ 0 ]
     }
   },
   {
@@ -23,7 +25,8 @@ const blocks = [
     },
     expected: {
       followsCount: 100,
-      fetchCallsCount: 1
+      fetchCallsCount: 1,
+      pagingOffset: [ 0 ]
     }
   },
   {
@@ -34,7 +37,8 @@ const blocks = [
     },
     expected: {
       followsCount: 150,
-      fetchCallsCount: 2
+      fetchCallsCount: 2,
+      pagingOffset: [ 0, 100 ]
     }
   },
   {
@@ -45,7 +49,8 @@ const blocks = [
     },
     expected: {
       followsCount: 200,
-      fetchCallsCount: 2
+      fetchCallsCount: 2,
+      pagingOffset: [ 0, 100 ]
     }
   },
   {
@@ -56,18 +61,26 @@ const blocks = [
     },
     expected: {
       followsCount: 250,
-      fetchCallsCount: 3
+      fetchCallsCount: 3,
+      pagingOffset: [ 0, 100, 200 ]
     }
   }
 ]
 
 blocks.forEach(({ title, entry, expected }) => test.serial(title, async (t) => {
   // Spy Twitch.fetch.
-  Twitch.fetch = sinon.spy(async (path) => {
-    t.is(path, `/users/${entry.user}/follows/channels`)
+  Twitch.fetch = sinon.spy(async (path, params) => {
+    const callIndex = Twitch.fetch.callCount - 1
 
-    let follows = new Array(entry.pagingFollowsCount[Twitch.fetch.callCount - 1])
+    t.is(path, `/users/${entry.user}/follows/channels`)
+    t.deepEqual(params, {
+      limit: ELEMENTS_LIMIT_PER_REQ,
+      offset: expected.pagingOffset[callIndex]
+    })
+
+    let follows = new Array(entry.pagingFollowsCount[callIndex])
     let _total = expected.followsCount
+
     return { _total, follows }
   })
 
