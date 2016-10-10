@@ -1,6 +1,6 @@
 import test from 'ava'
 
-import Twitch from 'Twitch/Twitch'
+import { Twitch } from 'Twitch'
 
 const blocks = [
   {

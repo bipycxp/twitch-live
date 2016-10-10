@@ -3,14 +3,16 @@ import sinon from 'sinon'
 
 import Twitch from 'Twitch'
 
-const { twitch: { apiUrl, apiVersion } } = require('config.js')
+import querystring from 'querystring'
+
+const { twitch } = require('config.js')
 
 const blocks = [
   {
     title: 'Success request with status 200',
     entry: {
       path: '/a/g',
-      parameters: { a: 'b', c: 'd' }
+      params: { a: 'b', c: 'd' }
     },
     expected: {
       json: () => 'json',
@@ -22,7 +24,7 @@ const blocks = [
     title: 'Success request with status 250',
     entry: {
       path: '/a/g',
-      parameters: { a: 'b', c: 'd' }
+      params: { a: 'b', c: 'd' }
     },
     expected: {
       json: () => 'json',
@@ -34,7 +36,7 @@ const blocks = [
     title: 'Bad request with status 100',
     entry: {
       path: '/a/g',
-      parameters: { a: 'b', c: 'd' }
+      params: { a: 'b', c: 'd' }
     },
     expected: {
       json: () => 'json',
@@ -46,7 +48,7 @@ const blocks = [
     title: 'Bad request with status 300',
     entry: {
       path: '/a/g',
-      parameters: { a: 'b', c: 'd' }
+      params: { a: 'b', c: 'd' }
     },
     expected: {
       json: () => 'json',
@@ -58,7 +60,7 @@ const blocks = [
     title: 'Bad request with status 350',
     entry: {
       path: '/a/g',
-      parameters: { a: 'b', c: 'd' }
+      params: { a: 'b', c: 'd' }
     },
     expected: {
       json: () => 'json',
@@ -70,26 +72,25 @@ const blocks = [
 
 blocks.forEach(async ({ title, entry, expected }) => test(title, async (t) => {
   // Spy global.fetch.
-  global.fetch = sinon.spy(async (path, parameters) => {
-    t.is(path, apiUrl + entry.path)
-    t.deepEqual(parameters, {
-      ...entry.parameters,
-      headers: {
-        'Accept': `application/vnd.twitchtv.${apiVersion}+json`,
-        'Client-ID': Twitch.getClientId()
-      }
-    })
+  global.fetch = sinon.spy(async (path, params) => {
+    const headers = {
+      'Accept': `application/vnd.twitchtv.${twitch.apiVersion}+json`,
+      'Client-ID': Twitch.getClientId()
+    }
+
+    t.is(path, twitch.apiUrl + entry.path + '?' + querystring.stringify(entry.params))
+    t.deepEqual(params, { headers })
 
     return expected
   })
 
   try {
-    const response = await Twitch.fetch(entry.path, entry.parameters)
+    const response = await Twitch.fetch(entry.path, entry.params)
 
     t.true(global.fetch.calledOnce)
     t.is(response, expected.json())
   } catch (e) {
-    // Check errors.
+    // Assert test if catching request error(code not between 200-299)
     if (expected.status < 200 || expected.status >= 300) {
       t.is(e.message, expected.statusText)
       return true
