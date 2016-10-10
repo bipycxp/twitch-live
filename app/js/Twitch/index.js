@@ -55,12 +55,37 @@ export class Twitch {
   }
 
   /**
+   * Map stream object.
+   *
+   * @private
+   * @param {Object} stream Stream object from response.
+   * @return {Object}
+   */
+  streamMap (stream) {
+    return {
+      delay: stream.delay,
+      displayName: stream.channel.display_name,
+      game: stream.game,
+      logo: stream.channel.logo,
+      name: stream.channel.name,
+      status: stream.channel.status,
+      url: stream.channel.url,
+      viewers: stream.viewers,
+      datetime: {
+        started: stream.created_at
+      }
+    }
+  }
+
+  /**
    * Get online streams from channels.
    *
    * @param {Array} channels
+   * @param {Function|false|null} map Map function to mapping streams from response.
+   *    If false - without mapping. If not a function - use Twitch.streamMap.
    * @return {Object}
    */
-  async streams (channels) {
+  async streams (channels, map = null) {
     let streams = []
     let params = {
       channel: channels.join(','),
@@ -78,7 +103,13 @@ export class Twitch {
       params.offset += params.limit
     }
 
-    return streams
+    // If false - without mapping.
+    if (map === false) return streams
+
+    // If not a function - use Twitch.streamMap.
+    const streamMap = map instanceof Function ? map : this.streamMap
+
+    return streams.map(streamMap)
   }
 
   /**

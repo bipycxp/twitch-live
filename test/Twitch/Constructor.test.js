@@ -10,7 +10,7 @@ const blocks = [
     },
     expected: {
       clientId: 'id',
-      methods: [ 'constructor', 'getClientId', 'fetch', 'streams', 'channel', 'follows' ]
+      methods: [ 'constructor', 'getClientId', 'fetch', 'streamMap', 'streams', 'channel', 'follows' ]
     }
   }
 ]

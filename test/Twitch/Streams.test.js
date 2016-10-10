@@ -4,7 +4,8 @@ import sinon from 'sinon'
 import Twitch from 'Twitch'
 const ELEMENTS_LIMIT_PER_REQ = 100
 
-const blocks = [
+// Testing correct request parameters and paging.
+const pagingTests = [
   {
     title: 'With one channel',
     entry: {
@@ -67,7 +68,7 @@ const blocks = [
   }
 ]
 
-blocks.forEach(({ title, entry, expected }) => test.serial(title, async (t) => {
+pagingTests.forEach(({ title, entry, expected }) => test.serial(title, async (t) => {
   // Spy Twitch.fetch.
   Twitch.fetch = sinon.spy(async (path, params) => {
     const callIndex = Twitch.fetch.callCount - 1
@@ -89,4 +90,56 @@ blocks.forEach(({ title, entry, expected }) => test.serial(title, async (t) => {
 
   t.is(Twitch.fetch.callCount, expected.fetchCallsCount)
   t.is(streams.length, expected.streamsCount)
+}))
+
+// Testing map parameter.
+const mappingTests = [
+  {
+    title: 'Without map function (map = false)',
+    entry: {
+      streams: [ 'stream1', 'stream2' ],
+      map: false // Without mapping.
+    },
+    expected: {
+      streams: [ 'stream1', 'stream2' ]
+    }
+  },
+  {
+    title: 'Map function is empty (map = null)',
+    entry: {
+      streams: [ 'stream1', 'stream2' ],
+      map: null // With default Twitch.streamMap.
+    },
+    expected: {
+      streams: [ 'streamMap', 'streamMap' ]
+    }
+  },
+  {
+    title: 'With map function',
+    entry: {
+      streams: [ 'stream1', 'stream2' ],
+      map: () => 'test' // Use custom map function.
+    },
+    expected: {
+      streams: [ 'test', 'test' ]
+    }
+  }
+]
+
+mappingTests.forEach(({ title, entry, expected }) => test.serial(title, async (t) => {
+  // Spy Twitch.fetch.
+  Twitch.fetch = sinon.spy(async () => ({ _total: entry.streams.length, streams: entry.streams }))
+  Twitch.streamMap = sinon.spy(() => 'streamMap')
+
+  const streams = await Twitch.streams(entry.streams, entry.map)
+
+  if (entry.map === false) {
+    // If false - without mapping.
+    t.true(Twitch.streamMap.notCalled)
+  } else if (typeof entry.map !== 'function') {
+    // If not a function - use Twitch.streamMap.
+    t.is(Twitch.streamMap.callCount, expected.streams.length)
+  }
+
+  t.deepEqual(streams, expected.streams)
 }))
