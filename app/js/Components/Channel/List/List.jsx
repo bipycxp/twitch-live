@@ -15,10 +15,10 @@ export default class List extends React.Component {
     return (
       <SwipeableViews className={cx('list')} index={slideIndex} onChangeIndex={handleChange}>
         <div className={cx('live')}>
-          {live.map(channel => (<LiveChannel key={channel.data.id} {...channel} />))}
+          {live.map(channel => (<LiveChannel key={channel.name} {...channel} />))}
         </div>
         <div className={cx('offline')}>
-          {offline.map(channel => (<OfflineChannel key={channel.data.id} {...channel} />))}
+          {offline.map(channel => (<OfflineChannel key={channel.name} {...channel} />))}
         </div>
       </SwipeableViews>
     )

@@ -7,18 +7,10 @@ const cx = classNames.bind(styles)
 export default class Channel extends React.Component {
   constructor (props) {
     super(props)
-
     let { favorite = false } = props
-
     this.state = {
       favorite
     }
-
-    this.handleOptionsClick = this.handleOptionsClick.bind(this)
-  }
-
-  handleOptionsClick () {
-    alert('click')
   }
 
   render () {
@@ -28,7 +20,6 @@ export default class Channel extends React.Component {
     return (
       <div className={cx('channel', className, { favorite })}>
         {children}
-        <div className={cx('options')} onClick={this.handleOptionsClick} />
       </div>
     )
   }

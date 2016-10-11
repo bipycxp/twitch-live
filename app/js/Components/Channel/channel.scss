@@ -4,6 +4,12 @@ $height: 65px;
 $infoPadding: 5px;
 $infoWidth: $appWidth - $height - 20px;
 
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .channel {
   margin: 5px;
 
@@ -40,6 +46,7 @@ $infoWidth: $appWidth - $height - 20px;
     }
 
     .status {
+      @extend .ellipsis;
       width: 260px;
       font: {
         size: 1.2em;
@@ -54,6 +61,7 @@ $infoWidth: $appWidth - $height - 20px;
     }
 
     .description {
+      @extend .ellipsis;
       line-height: 1.4em;
 
       a::after {

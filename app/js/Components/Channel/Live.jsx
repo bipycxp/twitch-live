@@ -2,6 +2,8 @@ import React from 'react'
 import Paper from 'material-ui/Paper'
 import ActionAccountCircle from 'material-ui/svg-icons/action/account-circle'
 
+import moment from 'moment'
+
 import Channel from './Channel'
 
 import classNames from 'classnames/bind'
@@ -9,35 +11,31 @@ import styles from './channel.scss'
 const cx = classNames.bind(styles)
 
 export default class LiveChannel extends React.Component {
-  constructor (props) {
-    super(props)
-
-    this.handlePictureClick = this.handlePictureClick.bind(this)
-  }
-
-  handlePictureClick () {
-    window.open(this.props.data.link, '_blank')
-  }
-
   render () {
     let { data, favorite } = this.props
-    let { game, link, liveTime, name, picture, status, viewers } = data
+    let { displayName, game, logo, status, url, viewers, datetime } = data
+    let live = 'live ' + moment(datetime.started).toNow(true)
+
+    // Add comma separate to big number.
+    let viewersFormat = viewers.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1,')
 
     return (
       <Channel className={cx('live')} favorite={favorite}>
         <Paper className={cx('picture')} rounded={false}>
-          <img src={picture} onClick={this.handlePictureClick} />
+          <a href={url} target="_blank">
+            <img src={logo} />
+          </a>
         </Paper>
         <Paper className={cx('info')} rounded={false}>
           <div className={cx('viewers')}>
-            {viewers}
+            {viewersFormat}
             <ActionAccountCircle className={cx('icon')} />
           </div>
-          <div className={cx('status')}>{status}</div>
-          <div className={cx('live')}>live {liveTime}</div>
+          <div className={cx('status')} title={status}>{status}</div>
+          <div className={cx('live')}>{live}</div>
           <div className={cx('description')}>
-            <a href={link} target="_blank">{name}</a>
-            <span>{game}</span>
+            <a href={url} target="_blank">{displayName}</a>
+            <span title={game}>{game}</span>
           </div>
         </Paper>
       </Channel>
@@ -46,14 +44,16 @@ export default class LiveChannel extends React.Component {
 }
 
 LiveChannel.propTypes = {
-  favorite: React.PropTypes.bool,
+  favorite: React.PropTypes.bool.isRequired,
   data: React.PropTypes.shape({
     game: React.PropTypes.string.isRequired,
-    link: React.PropTypes.string.isRequired,
-    liveTime: React.PropTypes.number.isRequired,
+    logo: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
-    picture: React.PropTypes.string.isRequired,
     status: React.PropTypes.string.isRequired,
-    viewers: React.PropTypes.number.isRequired
+    url: React.PropTypes.string.isRequired,
+    viewers: React.PropTypes.number.isRequired,
+    datetime: React.PropTypes.shape({
+      started: React.PropTypes.string.isRequired
+    })
   }).isRequired
 }

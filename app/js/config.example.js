@@ -5,6 +5,7 @@ export default {
   twitch: {
     clientId: '', // Need to fill.
     apiUrl: 'https://api.twitch.tv/kraken',
-    apiVersion: 'v3'
+    apiVersion: 'v3',
+    url: 'https://www.twitch.tv'
   }
 }
