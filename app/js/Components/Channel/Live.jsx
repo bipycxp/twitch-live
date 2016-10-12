@@ -2,9 +2,10 @@ import React from 'react'
 import Paper from 'material-ui/Paper'
 import ActionAccountCircle from 'material-ui/svg-icons/action/account-circle'
 
-import moment from 'moment'
-
 import Channel from './Channel'
+import LiveTime from './LiveTime/LiveTime'
+
+import separateNumber from 'utils/separateNumber'
 
 import classNames from 'classnames/bind'
 import styles from './channel.scss'
@@ -14,10 +15,6 @@ export default class LiveChannel extends React.Component {
   render () {
     let { data, favorite } = this.props
     let { displayName, game, logo, status, url, viewers, datetime } = data
-    let live = 'live ' + moment(datetime.started).toNow(true)
-
-    // Add comma separate to big number.
-    let viewersFormat = viewers.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1,')
 
     return (
       <Channel className={cx('live')} favorite={favorite}>
@@ -28,11 +25,13 @@ export default class LiveChannel extends React.Component {
         </Paper>
         <Paper className={cx('info')} rounded={false}>
           <div className={cx('viewers')}>
-            {viewersFormat}
+            {separateNumber(viewers)}
             <ActionAccountCircle className={cx('icon')} />
           </div>
           <div className={cx('status')} title={status}>{status}</div>
-          <div className={cx('live')}>{live}</div>
+          <div className={cx('live')}>
+            <LiveTime started={datetime.started} />
+          </div>
           <div className={cx('description')}>
             <a href={url} target="_blank">{displayName}</a>
             <span title={game}>{game}</span>
