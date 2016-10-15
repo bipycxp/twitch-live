@@ -1,5 +1,5 @@
 {
   "comments": "stage-2 is for async/await and rest/spread - https://github.com/tc39/proposals",
   "presets": [ "es2015", "stage-2", "react" ],
-  "plugins": [ "add-module-exports", "transform-runtime", "babel-polyfill" ]
+  "plugins": [ "add-module-exports", "transform-runtime", "babel-polyfill", "react-hot-loader/babel" ]
 }
