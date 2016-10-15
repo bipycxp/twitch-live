@@ -7,7 +7,7 @@ const tests = [
     title: 'Check correct mapping',
     entry: {
       stream: {
-        game: 'StarCraft II: Heart of the Swarm',
+        game: 'StarCraft II',
         viewers: 2123,
         average_fps: 29.9880749574,
         delay: 0,
@@ -65,7 +65,8 @@ const tests = [
       stream: {
         delay: 0,
         displayName: 'test_channel',
-        game: 'StarCraft II: Heart of the Swarm',
+        game: 'StarCraft II',
+        gameUrl: 'https://www.twitch.tv/directory/game/StarCraft II',
         logo: 'http://.../test_channel-profile_image-300x300.jpeg',
         name: 'test_channel',
         status: 'test status',

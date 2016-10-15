@@ -14,7 +14,7 @@ const cx = classNames.bind(styles)
 export default class LiveChannel extends React.Component {
   render () {
     let { data, favorite } = this.props
-    let { displayName, game, logo, status, url, viewers, datetime } = data
+    let { displayName, game, gameUrl, logo, status, url, viewers, datetime } = data
 
     return (
       <Channel className={cx('live')} favorite={favorite}>
@@ -34,7 +34,7 @@ export default class LiveChannel extends React.Component {
           </div>
           <div className={cx('description')}>
             <a href={url} target="_blank">{displayName}</a>
-            <span title={game}>{game}</span>
+            playing <a href={gameUrl} title={game} target="_blank">{game}</a>
           </div>
         </Paper>
       </Channel>

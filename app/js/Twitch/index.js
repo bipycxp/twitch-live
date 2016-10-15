@@ -3,8 +3,9 @@ import querystring from 'querystring'
 
 import { twitch } from '../config'
 
-const API_URL = twitch.apiUrl
-const API_VERSION = twitch.apiVersion
+const TWITCH_API_URL = twitch.apiUrl
+const TWITCH_API_VERSION = twitch.apiVersion
+const TWITCH_URL = twitch.url
 
 const ELEMENTS_LIMIT_PER_REQ = 100
 
@@ -39,9 +40,9 @@ export class Twitch {
    */
   async fetch (path, params = {}) {
     // Path to Twitch API with query params.
-    const url = API_URL + path + '?' + querystring.stringify(params)
+    const url = TWITCH_API_URL + path + '?' + querystring.stringify(params)
     const headers = {
-      'Accept': `application/vnd.twitchtv.${API_VERSION}+json`,
+      'Accept': `application/vnd.twitchtv.${TWITCH_API_VERSION}+json`,
       'Client-ID': this.clientId
     }
 
@@ -66,6 +67,7 @@ export class Twitch {
       delay: stream.delay,
       displayName: stream.channel.display_name,
       game: stream.game,
+      gameUrl: TWITCH_URL + '/directory/game/' + stream.game,
       logo: stream.channel.logo,
       name: stream.channel.name,
       status: stream.channel.status,
