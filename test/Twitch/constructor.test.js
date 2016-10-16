@@ -2,7 +2,7 @@ import test from 'ava'
 
 import { Twitch } from 'Twitch'
 
-const blocks = [
+const tests = [
   {
     title: 'Correct entry',
     entry: {
@@ -15,7 +15,7 @@ const blocks = [
   }
 ]
 
-blocks.forEach(async ({ title, entry, expected }) => test(title, async (t) => {
+tests.forEach(async ({ title, entry, expected }) => test(title, async (t) => {
   const twitch = new Twitch(entry)
 
   // Check availability of the necessary methods.

@@ -3,7 +3,7 @@ import sinon from 'sinon'
 
 import Twitch from 'Twitch'
 
-const blocks = [
+const tests = [
   {
     title: 'Correct channel',
     entry: {
@@ -13,7 +13,7 @@ const blocks = [
   }
 ]
 
-blocks.forEach(async ({ title, entry, expected }) => test(title, async (t) => {
+tests.forEach(async ({ title, entry, expected }) => test(title, async (t) => {
   // Spy Twitch.fetch.
   Twitch.fetch = sinon.spy(async (path) => {
     t.is(path, '/channels/' + entry.channel)

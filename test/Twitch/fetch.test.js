@@ -7,7 +7,7 @@ import querystring from 'querystring'
 
 const { twitch } = require('config.js')
 
-const blocks = [
+const tests = [
   {
     title: 'Success request with status 200',
     entry: {
@@ -70,7 +70,7 @@ const blocks = [
   }
 ]
 
-blocks.forEach(async ({ title, entry, expected }) => test(title, async (t) => {
+tests.forEach(async ({ title, entry, expected }) => test(title, async (t) => {
   // Spy global.fetch.
   global.fetch = sinon.spy(async (path, params) => {
     const headers = {

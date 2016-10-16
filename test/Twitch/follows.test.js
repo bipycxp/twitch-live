@@ -4,7 +4,7 @@ import sinon from 'sinon'
 import Twitch from 'Twitch'
 const ELEMENTS_LIMIT_PER_REQ = 100
 
-const blocks = [
+const tests = [
   {
     title: 'User have 10 follows',
     entry: {
@@ -67,7 +67,7 @@ const blocks = [
   }
 ]
 
-blocks.forEach(({ title, entry, expected }) => test.serial(title, async (t) => {
+tests.forEach(({ title, entry, expected }) => test.serial(title, async (t) => {
   // Spy Twitch.fetch.
   Twitch.fetch = sinon.spy(async (path, params) => {
     const callIndex = Twitch.fetch.callCount - 1
