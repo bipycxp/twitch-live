@@ -1,0 +1,20 @@
+@import "../../../variables";
+
+.counter {
+  position: absolute;
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  border: 1px solid $transparentWhite;
+  border-radius: 50%;
+  margin-top: -1px;
+  margin-left: 5px;
+  line-height: 1.7;
+  font-size: 0.7em;
+  color: $transparentWhite;
+
+  &.active {
+    background: $white;
+    color: $purple;
+  }
+}
