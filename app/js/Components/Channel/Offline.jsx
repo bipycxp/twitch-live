@@ -3,7 +3,7 @@ import Paper from 'material-ui/Paper'
 
 import { twitch } from '../../config'
 
-import Channel from './Channel'
+import Channel from './'
 
 import classNames from 'classnames/bind'
 import styles from './channel.scss'
