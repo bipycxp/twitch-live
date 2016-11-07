@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "description": "Browser extension with notifications to check when does your favorite Twitch.tv channels are online.",
   "scripts": {
-    "lint": "npm run lint:js && npm run lint:scss",
+    "lint": "yarn lint:js && yarn lint:scss",
     "lint:js": "eslint ./app/js webpack.config.js --ext js,jsx",
     "lint:scss": "stylelint 'app/**/*.scss' -s scss",
     "start": "webpack-dev-server --content-base ./app --inline --hot -d --host 0.0.0.0",
