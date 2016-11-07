@@ -3,11 +3,10 @@
 .counter {
   position: absolute;
   display: inline-block;
-  width: 17px;
-  height: 17px;
+  height: 15px;
+  padding: 0 4px;
   border: 1px solid $transparentWhite;
-  border-radius: 50%;
-  margin-top: -1px;
+  border-radius: 5px;
   margin-left: 5px;
   line-height: 1.7;
   font-size: 0.7em;
