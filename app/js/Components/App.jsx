@@ -1,28 +1,22 @@
 import React from 'react'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
-import List from '../Components/Channel/List'
-import Menu from './Menu'
+import List from 'Components/Stream/List'
 
 import classNames from 'classnames/bind'
 import styles from './app.scss'
 const cx = classNames.bind(styles)
 
-import Twitch from '../Twitch'
+import Twitch from 'Twitch'
 
 export default class App extends React.Component {
-  constructor (props) {
-    super(props)
+  static childContextTypes = {
+    muiTheme: React.PropTypes.object.isRequired
+  }
 
-    this.state = {
-      channels: {
-        live: [],
-        offline: []
-      },
-      slideIndex: 0
-    }
-
-    this.handleSlideChange = this.handleSlideChange.bind(this)
+  state = {
+    streams: [],
+    channels: []
   }
 
   getChildContext () {
@@ -36,16 +30,12 @@ export default class App extends React.Component {
     return { muiTheme }
   }
 
-  handleSlideChange (slideIndex) {
-    this.setState({ slideIndex })
-  }
-
   async componentDidMount () {
     const DBChannels = await this.fetchDBChannels()
     const streams = await Twitch.streams(DBChannels.map(c => c.name))
     const channels = this.aggregateChannels(DBChannels, streams)
 
-    this.setState({ channels })
+    this.setState({ streams, channels })
   }
 
   /**
@@ -65,54 +55,24 @@ export default class App extends React.Component {
   }
 
   /**
-   * Aggregate live and offline channels.
+   * Aggregate channels with live statuses.
    *
    * @param {Array} channels
    * @param {Array} streams
-   * @return {{live: Array, offline: Array}}
+   * @return {Array}
    */
-  aggregateChannels (channels, streams) {
-    let live = []
-    let offline = []
-
-    channels.forEach((c) => {
-      let stream = streams.find(s => s.name === c.name)
-
-      if (stream) {
-        // Live channel.
-        c.data = stream
-        live.push(c)
-      } else {
-        // Offline channel.
-        offline.push(c)
-      }
-    })
-
-    return { live, offline }
-  }
+  aggregateChannels = (channels, streams) => channels.map((channel) => {
+    channel.live = streams.findIndex(stream => channel.name === stream.name) !== -1
+    return channel
+  })
 
   render () {
-    const slideProps = {
-      slideIndex: this.state.slideIndex,
-      handleChange: this.handleSlideChange
-    }
-
-    let { channels } = this.state
-
-    let counters = {
-      live: channels.live.length,
-      offline: channels.offline.length
-    }
+    let { streams } = this.state
 
     return (
       <div className={cx('app')}>
-        <List {...slideProps} channels={channels} />
-        <Menu {...slideProps} counters={counters} />
+        <List streams={streams} />
       </div>
     )
   }
-}
-
-App.childContextTypes = {
-  muiTheme: React.PropTypes.object.isRequired
 }

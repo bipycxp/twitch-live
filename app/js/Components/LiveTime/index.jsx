@@ -7,24 +7,16 @@ import styles from './liveTime.scss'
 const cx = classNames.bind(styles)
 
 export default class LiveTime extends React.Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      short: true
-    }
-
-    this.onFocusHandler = this.onFocusHandler.bind(this)
-    this.onBlurHandler = this.onBlurHandler.bind(this)
+  static propTypes = {
+    started: React.PropTypes.string.isRequired
   }
 
-  onFocusHandler () {
-    this.setState({ short: false })
+  state = {
+    short: true
   }
 
-  onBlurHandler () {
-    this.setState({ short: true })
-  }
+  onFocusHandler = () => this.setState({ short: false })
+  onBlurHandler = () => this.setState({ short: true })
 
   render () {
     let { started } = this.props
@@ -36,8 +28,4 @@ export default class LiveTime extends React.Component {
       </div>
     )
   }
-}
-
-LiveTime.propTypes = {
-  started: React.PropTypes.string.isRequired
 }

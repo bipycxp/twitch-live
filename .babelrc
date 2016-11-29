@@ -1,5 +1,5 @@
 {
-  "comments": "stage-2 is for async/await and rest/spread - https://github.com/tc39/proposals",
+  "comments": "stage-2 is for async/await, rest/spread and class properties - https://babeljs.io/docs/plugins/preset-stage-2/",
   "presets": [ "es2015", "stage-2", "react" ],
   "plugins": [ "add-module-exports", "transform-runtime", "babel-polyfill", "react-hot-loader/babel" ]
 }

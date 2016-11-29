@@ -10,7 +10,7 @@ $infoWidth: $appWidth - $height - 20px;
   text-overflow: ellipsis;
 }
 
-.channel {
+.stream {
   margin: 5px;
 
   .picture {
@@ -68,9 +68,5 @@ $infoWidth: $appWidth - $height - 20px;
         content: " ";
       }
     }
-  }
-
-  &.offline .info .description {
-    line-height: 3.8em;
   }
 }
