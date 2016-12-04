@@ -1,5 +1,4 @@
 import React from 'react'
-import Paper from 'material-ui/Paper'
 
 import LiveStatus from 'Components/LiveStatus'
 
@@ -11,14 +10,14 @@ export default function Channel (props) {
   let { name, live } = props
 
   return (
-    <Paper className={cx('channel')} rounded={false}>
+    <div className={cx('channel')}>
       <div className={cx('title')}>
         <span className={cx('liveStatus')}>
           <LiveStatus live={live} />
         </span>
         {name}
       </div>
-    </Paper>
+    </div>
   )
 }
 

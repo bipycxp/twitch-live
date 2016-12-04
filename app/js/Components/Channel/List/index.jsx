@@ -1,4 +1,5 @@
 import React from 'react'
+import Divider from 'material-ui/Divider'
 
 import Channel from '../index'
 
@@ -9,9 +10,21 @@ const cx = classNames.bind(styles)
 export default function List (props) {
   const { channels } = props
 
+  // Add dividers.
+  let dividedList = []
+  channels.forEach((channel) => {
+    dividedList
+      .push(
+        (<Channel key={channel.name} {...channel} />),
+        (<Divider key={channel.name + '_divider'} className={cx('divider')} />)
+      )
+  })
+  // Remove last divider.
+  dividedList.pop()
+
   return (
     <div className={cx('list')}>
-      {channels.map(channel => (<Channel key={channel.name} {...channel} />))}
+      {dividedList}
     </div>
   )
 }

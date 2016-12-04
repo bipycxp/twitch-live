@@ -1,9 +1,11 @@
+$height: 40px;
+
 .channel {
-  height: 30px !important;
+  height: $height !important;
 
   .title {
     float: left;
-    line-height: 2em;
+    line-height: $height;
 
     .liveStatus {
       position: relative;
