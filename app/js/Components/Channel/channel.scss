@@ -1,0 +1,15 @@
+.channel {
+  height: 30px !important;
+
+  .title {
+    float: left;
+    line-height: 2em;
+
+    .liveStatus {
+      position: relative;
+      top: 1px;
+      margin: 0 5px;
+      font-size: 0.85em;
+    }
+  }
+}
