@@ -1,17 +1,48 @@
+@import "../variables";
+
 $height: 40px;
 
 .channel {
-  height: $height !important;
+  height: $height;
+  background: $white;
 
   .title {
     float: left;
-    line-height: $height;
+    line-height: $height - 1px;
 
     .liveStatus {
       position: relative;
       top: 1px;
       margin: 0 5px;
       font-size: 0.85em;
+    }
+  }
+
+  .actions {
+    display: none;
+    float: right;
+    margin-top: 3px !important;
+
+    .action {
+      width: 35px !important;
+      height: 35px !important;
+      padding: 0 !important;
+
+      .icon {
+        width: 20px !important;
+        height: 20px !important;
+        color: $grey800 !important;
+
+        &.heart.favorite {
+          color: $red !important;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    .actions {
+      display: block;
     }
   }
 }
