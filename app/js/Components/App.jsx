@@ -1,7 +1,9 @@
 import React from 'react'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
+import { grey900 } from 'material-ui/styles/colors'
 
 import List from 'Components/Stream/List'
+import Settings from 'Components/Settings'
 
 import classNames from 'classnames/bind'
 import styles from './app.scss'
@@ -22,8 +24,7 @@ export default class App extends React.Component {
   getChildContext () {
     const muiTheme = getMuiTheme({
       palette: {
-        primary1Color: '#6441a5',
-        accent1Color: 'white'
+        textColor: grey900
       }
     })
 
@@ -50,7 +51,8 @@ export default class App extends React.Component {
       { name: 'dreadztv', favorite: true },
       { name: 'illidanstrdoto', favorite: false },
       { name: 'dendi', favorite: false },
-      { name: 'rxnexus', favorite: true }
+      { name: 'rxnexus', favorite: true },
+      { name: 'dotamajorru', favorite: true }
     ]
   }
 
@@ -67,11 +69,12 @@ export default class App extends React.Component {
   })
 
   render () {
-    let { streams } = this.state
+    let { channels, streams } = this.state
 
     return (
       <div className={cx('app')}>
         <List streams={streams} />
+        <Settings channels={channels} />
       </div>
     )
   }
