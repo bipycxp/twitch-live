@@ -1,17 +1,22 @@
 import React from 'react'
 
-import List from 'Components/Channel/List'
+import AddChannel from './Add'
+import ChannelsList from 'Components/Channel/List'
 
-export default function Settings (props) {
+export default function Channels (props) {
   let { channels } = props
 
   return (
     <div>
-      <List channels={channels} />
+      <AddChannel
+        handleSearch={value => [ value, value + value, value + value + value ]}
+        handleSelect={value => console.log('Selected channel: ' + value)}
+      />
+      <ChannelsList channels={channels} />
     </div>
   )
 }
 
-Settings.propTypes = {
+Channels.propTypes = {
   channels: React.PropTypes.array.isRequired
 }

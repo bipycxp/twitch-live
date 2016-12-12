@@ -7,7 +7,7 @@ import classNames from 'classnames/bind'
 import styles from './list.scss'
 const cx = classNames.bind(styles)
 
-export default function List (props) {
+export default function ChannelsList (props) {
   const { channels } = props
 
   // Add dividers.
@@ -29,6 +29,6 @@ export default function List (props) {
   )
 }
 
-List.propTypes = {
+ChannelsList.propTypes = {
   channels: React.PropTypes.array.isRequired
 }
