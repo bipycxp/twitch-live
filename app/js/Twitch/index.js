@@ -8,6 +8,7 @@ const TWITCH_API_VERSION = twitch.apiVersion
 const TWITCH_URL = twitch.url
 
 const ELEMENTS_LIMIT_PER_REQ = 100
+const DEFAULT_SEARCH_COUNT = 5
 
 /**
  * Class to working with Twitch API.
@@ -112,6 +113,40 @@ export class Twitch {
     const streamMap = map instanceof Function ? map : this.streamMap
 
     return streams.map(streamMap)
+  }
+
+  /**
+   * Get channels by query.
+   *
+   * @param {String} query
+   * @param {number} count
+   * @param {Function|false|null} map
+   * @return {Object[]}
+   */
+  async channels (query, count = DEFAULT_SEARCH_COUNT, map = null) {
+    let channels = []
+    let params = {
+      query,
+      limit: count < ELEMENTS_LIMIT_PER_REQ ? count : ELEMENTS_LIMIT_PER_REQ,
+      offset: 0
+    }
+
+    while (true) {
+      const { _total, channels: respChannels } = await this.fetch('/search/channels', params)
+      channels = channels.concat(respChannels)
+
+      // Break loop if last response page or count is reached.
+      const channelsCount = channels.length
+      if (respChannels.length !== params.limit || channelsCount === _total || channelsCount === count) break
+
+      params.offset += params.limit
+    }
+
+    // If false - without mapping.
+    if (map === false) return channels
+
+    // If not a function - use Twitch.streamMap.
+    return channels.map(map instanceof Function ? map : this.streamMap)
   }
 
   /**
