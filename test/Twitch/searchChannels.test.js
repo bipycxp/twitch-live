@@ -117,7 +117,7 @@ pagingTests.forEach(({ title, entry, expected }) => test.serial(title, async (t)
     return { _total, channels }
   })
 
-  const channels = await Twitch.channels(entry.query, entry.count)
+  const channels = await Twitch.searchChannels(entry.query, entry.count)
 
   t.is(Twitch.fetch.callCount, expected.fetchCallsCount)
   t.is(channels.length, expected.channelsCount)
@@ -139,10 +139,10 @@ const mappingTests = [
     title: 'Map function is empty (map = null)',
     entry: {
       respChannels: [ 'a' ],
-      map: null // With default Twitch.streamMap.
+      map: null // With default Twitch.channelMap.
     },
     expected: {
-      channels: [ 'streamMap' ]
+      channels: [ 'channelMap' ]
     }
   },
   {
@@ -160,16 +160,16 @@ const mappingTests = [
 mappingTests.forEach(({ title, entry, expected }) => test.serial(title, async (t) => {
   // Spy Twitch.fetch.
   Twitch.fetch = sinon.spy(async () => ({ _total: entry.respChannels.length, channels: entry.respChannels }))
-  Twitch.streamMap = sinon.spy(() => 'streamMap')
+  Twitch.channelMap = sinon.spy(() => 'channelMap')
 
-  const channels = await Twitch.channels('', DEFAULT_SEARCH_COUNT, entry.map)
+  const channels = await Twitch.searchChannels('', DEFAULT_SEARCH_COUNT, entry.map)
 
   if (entry.map === false) {
     // If false - without mapping.
-    t.true(Twitch.streamMap.notCalled)
+    t.true(Twitch.channelMap.notCalled)
   } else if (typeof entry.map !== 'function') {
-    // If not a function - use Twitch.streamMap.
-    t.is(Twitch.streamMap.callCount, expected.channels.length)
+    // If not a function - use Twitch.channelMap.
+    t.is(Twitch.channelMap.callCount, expected.channels.length)
   }
 
   t.deepEqual(channels, expected.channels)

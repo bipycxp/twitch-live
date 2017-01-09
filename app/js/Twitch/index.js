@@ -3,6 +3,7 @@ import querystring from 'querystring'
 
 import { twitch } from '../config'
 
+const TWITCH_CLIENT_ID = twitch.clientId
 const TWITCH_API_URL = twitch.apiUrl
 const TWITCH_API_VERSION = twitch.apiVersion
 const TWITCH_URL = twitch.url
@@ -65,9 +66,9 @@ export class Twitch {
    */
   streamMap (stream) {
     return {
-      delay: stream.delay,
+      channelId: stream.channel._id,
       displayName: stream.channel.display_name,
-      game: stream.game,
+      game: stream.channel.game, // Full name of the game
       gameUrl: TWITCH_URL + '/directory/game/' + stream.game,
       logo: stream.channel.logo,
       name: stream.channel.name,
@@ -83,7 +84,7 @@ export class Twitch {
   /**
    * Get online streams from channels.
    *
-   * @param {Array} channels
+   * @param {Number[]} channels Array of the channel ids.
    * @param {Function|false|null} map Map function to mapping streams from response.
    *    If false - without mapping. If not a function - use Twitch.streamMap.
    * @return {Object}
@@ -110,9 +111,24 @@ export class Twitch {
     if (map === false) return streams
 
     // If not a function - use Twitch.streamMap.
-    const streamMap = map instanceof Function ? map : this.streamMap
+    return streams.map(map instanceof Function ? map : this.streamMap)
+  }
 
-    return streams.map(streamMap)
+  /**
+   * Map channel object.
+   *
+   * @private
+   * @param {Object} channel Channel object from response.
+   * @return {Object}
+   */
+  channelMap (channel) {
+    return {
+      id: channel._id,
+      displayName: channel.display_name,
+      logo: channel.logo,
+      name: channel.name,
+      url: channel.url
+    }
   }
 
   /**
@@ -123,7 +139,7 @@ export class Twitch {
    * @param {Function|false|null} map
    * @return {Object[]}
    */
-  async channels (query, count = DEFAULT_SEARCH_COUNT, map = null) {
+  async searchChannels (query, count = DEFAULT_SEARCH_COUNT, map = null) {
     let channels = []
     let params = {
       query,
@@ -145,27 +161,27 @@ export class Twitch {
     // If false - without mapping.
     if (map === false) return channels
 
-    // If not a function - use Twitch.streamMap.
-    return channels.map(map instanceof Function ? map : this.streamMap)
+    // If not a function - use Twitch.channelMap.
+    return channels.map(map instanceof Function ? map : this.channelMap)
   }
 
   /**
    * Get channel info.
    *
-   * @param {String} channel
+   * @param {Number} channelId
    * @return {Object}
    */
-  async channel (channel) {
-    return this.fetch('/channels/' + channel)
+  async channel (channelId) {
+    return this.fetch('/channels/' + channelId)
   }
 
   /**
    * Get user follows.
    *
-   * @param {String} user
+   * @param {Number} userId
    * @return {Object}
    */
-  async follows (user) {
+  async follows (userId) {
     let follows = []
     let params = {
       limit: ELEMENTS_LIMIT_PER_REQ,
@@ -173,7 +189,7 @@ export class Twitch {
     }
 
     while (true) {
-      let { _total, follows: respFollows } = await this.fetch(`/users/${user}/follows/channels`, params)
+      let { _total, follows: respFollows } = await this.fetch(`/users/${userId}/follows/channels`, params)
       follows = [].concat(follows, respFollows)
 
       // Break loop if last response page.
@@ -186,4 +202,4 @@ export class Twitch {
   }
 }
 
-export default new Twitch({ clientId: twitch.clientId })
+export default new Twitch({ clientId: TWITCH_CLIENT_ID })
