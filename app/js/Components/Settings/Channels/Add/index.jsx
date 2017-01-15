@@ -1,6 +1,8 @@
 import React from 'react'
 import AutoComplete from 'material-ui/AutoComplete'
 
+import callOnceWithDelay from 'utils/callOnceWithDelay'
+
 import classNames from 'classnames/bind'
 import styles from './add.scss'
 const cx = classNames.bind(styles)
@@ -8,16 +10,22 @@ const cx = classNames.bind(styles)
 export default class AddChannel extends React.Component {
   static propTypes = {
     handleSearch: React.PropTypes.func.isRequired,
-    handleSelect: React.PropTypes.func.isRequired
+    handleSelect: React.PropTypes.func.isRequired,
+    searchDelay: React.PropTypes.number
+  }
+
+  static defaultProps = {
+    searchDelay: 300
   }
 
   state = {
-    dataSource: []
+    items: []
   }
 
-  handleUpdateInput = value => this.setState({
-    dataSource: this.props.handleSearch(value)
-  })
+  handleSearch = async function (value) {
+    const items = await this.props.handleSearch(value)
+    this.setState({ items })
+  }.bind(this)
 
   handleNewRequest = value => this.props.handleSelect(value)
 
@@ -27,9 +35,11 @@ export default class AddChannel extends React.Component {
         className={cx('add')}
         floatingLabelText="Add new channel"
         hintText="Type channel name..."
-        dataSource={this.state.dataSource}
-        onUpdateInput={this.handleUpdateInput}
+        dataSource={this.state.items}
+        dataSourceConfig={{ value: 'id', text: 'displayName' }}
+        onUpdateInput={callOnceWithDelay(this.handleSearch, this.props.searchDelay)}
         onNewRequest={this.handleNewRequest}
+        filter={() => true}
         fullWidth
       />
     )
