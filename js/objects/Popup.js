@@ -130,7 +130,7 @@ Popup.prototype = {
                 .replace('{logo}', stream.channel.logo)
                 .replace(/\{favorite\}/g, channel.favorite ? 'yellow' : 'basic')
                 .replace('{viewers}', stream.viewers.toString().replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1,'))
-                .replace('{status}', stream.channel.status || stream.game)
+                .replace(/\{status\}/g, stream.channel.status || stream.game)
                 .replace('{live}', stream.live)
                 .replace(/\{url\}/g, stream.channel.url || 'http://twitch.tv/' + stream.channel.name)
                 .replace('{display_name}', stream.channel.display_name)
