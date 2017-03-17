@@ -22,7 +22,8 @@
     "react"
   ],
   "rules": {
-    "jsx-quotes": [2, "prefer-double"],
+    "quotes": [ "error", "backtick", { "avoidEscape": true, "allowTemplateLiterals": true } ],
+    "comma-dangle": [ "error", "always-multiline" ],
     "react/jsx-no-bind": 0
   }
 }
