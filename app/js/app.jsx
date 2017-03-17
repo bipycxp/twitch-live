@@ -1,5 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import { applyMiddleware, createStore } from 'redux'
+import createLogger from 'redux-logger'
+import reducers from './reducers'
+
+import { getChannels } from 'Actions'
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 // Needed for onTouchTap
@@ -9,10 +16,20 @@ injectTapEventPlugin()
 
 import App from 'Components/App'
 
-const WrappedApp = () => (
-  <MuiThemeProvider>
-    <App />
-  </MuiThemeProvider>
+const logger = createLogger()
+const store = createStore(
+  reducers,
+  applyMiddleware(logger)
 )
 
-ReactDOM.render((<WrappedApp />), document.getElementById('root'))
+store.dispatch(getChannels())
+
+const WrappedApp = () => (
+  <Provider store={store}>
+    <MuiThemeProvider>
+      <App />
+    </MuiThemeProvider>
+  </Provider>
+)
+
+ReactDOM.render((<WrappedApp />), document.getElementById(`root`))

@@ -13,47 +13,41 @@ const cx = classNames.bind(styles)
 export default class Channel extends React.Component {
   static propTypes = {
     name: React.PropTypes.string.isRequired,
-    live: React.PropTypes.bool.isRequired,
-    favorite: React.PropTypes.bool
+    live: React.PropTypes.bool,
+    favorite: React.PropTypes.bool,
+    onFavorite: React.PropTypes.func,
+    onDestroy: React.PropTypes.func,
   }
 
   static defaultProps = {
-    favorite: false
+    live: false,
+    favorite: false,
+    onFavorite: () => {},
+    onDestroy: () => {},
   }
 
-  constructor (props) {
-    super(props)
-
-    const { favorite } = this.props
-
-    this.state = {
-      favorite
-    }
-  }
-
-  handleFavorite = () => this.setState(prev => ({ favorite: !prev.favorite }))
-  handleDestroy = () => console.log('removed')
+  handleFavorite = () => this.props.onFavorite(this.props.name)
+  handleDestroy = () => this.props.onDestroy(this.props.name)
 
   render () {
-    const { name, live } = this.props
-    const { favorite } = this.state
+    const { name, live, favorite } = this.props
 
     const Heart = favorite ? ActionFavorite : ActionFavoriteBorder
 
     return (
-      <div className={cx('channel', { favorite })}>
-        <div className={cx('title')}>
-          <span className={cx('liveStatus')}>
+      <div className={cx(`channel`, { favorite })}>
+        <div className={cx(`title`)}>
+          <span className={cx(`liveStatus`)}>
             <LiveStatus live={live} />
           </span>
           {name}
         </div>
-        <div className={cx('actions')}>
-          <IconButton className={cx('action')} onClick={this.handleFavorite}>
-            <Heart className={cx('icon', 'heart', { favorite })} />
+        <div className={cx(`actions`)}>
+          <IconButton className={cx(`action`)} onClick={this.handleFavorite}>
+            <Heart className={cx(`icon`, `heart`, { favorite })} />
           </IconButton>
-          <IconButton className={cx('action')} onClick={this.handleDestroy}>
-            <NavigationClose className={cx('icon')} />
+          <IconButton className={cx(`action`)} onClick={this.handleDestroy}>
+            <NavigationClose className={cx(`icon`)} />
           </IconButton>
         </div>
       </div>
