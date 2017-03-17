@@ -1,11 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { applyMiddleware, createStore } from 'redux'
-import createLogger from 'redux-logger'
-import reducers from './reducers'
-
-import { getChannels } from 'Actions'
+import configureStore from 'Store'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
@@ -16,13 +12,7 @@ injectTapEventPlugin()
 
 import App from 'Components/App'
 
-const logger = createLogger()
-const store = createStore(
-  reducers,
-  applyMiddleware(logger)
-)
-
-store.dispatch(getChannels())
+const store = configureStore()
 
 const WrappedApp = () => (
   <Provider store={store}>
