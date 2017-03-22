@@ -42,10 +42,10 @@ export class Twitch {
    */
   async fetch (path, params = {}) {
     // Path to Twitch API with query params.
-    const url = TWITCH_API_URL + path + '?' + querystring.stringify(params)
+    const url = `${TWITCH_API_URL}${path}?${querystring.stringify(params)}`
     const headers = {
       'Accept': `application/vnd.twitchtv.${TWITCH_API_VERSION}+json`,
-      'Client-ID': this.clientId
+      'Client-ID': this.clientId,
     }
 
     const response = await fetch(url, { headers })
@@ -69,15 +69,15 @@ export class Twitch {
       channelId: stream.channel._id,
       displayName: stream.channel.display_name,
       game: stream.channel.game, // Full name of the game
-      gameUrl: TWITCH_URL + '/directory/game/' + stream.game,
+      gameUrl: `${TWITCH_URL}/directory/game/${stream.game}`,
       logo: stream.channel.logo,
       name: stream.channel.name,
       status: stream.channel.status,
       url: stream.channel.url,
       viewers: stream.viewers,
       datetime: {
-        started: stream.created_at
-      }
+        started: stream.created_at,
+      },
     }
   }
 
@@ -92,13 +92,13 @@ export class Twitch {
   async streams (channels, map = null) {
     let streams = []
     let params = {
-      channel: channels.join(','),
+      channel: channels.join(`,`),
       limit: ELEMENTS_LIMIT_PER_REQ,
-      offset: 0
+      offset: 0,
     }
 
     while (true) {
-      let { _total, streams: respStreams } = await this.fetch('/streams', params)
+      let { _total, streams: respStreams } = await this.fetch(`/streams`, params)
       streams = [].concat(streams, respStreams)
 
       // Break loop if last response page.
@@ -127,7 +127,7 @@ export class Twitch {
       displayName: channel.display_name,
       logo: channel.logo,
       name: channel.name,
-      url: channel.url
+      url: channel.url,
     }
   }
 
@@ -135,7 +135,7 @@ export class Twitch {
    * Get channels by query.
    *
    * @param {String} query
-   * @param {number} count
+   * @param {Number} count
    * @param {Function|false|null} map
    * @return {Object[]}
    */
@@ -144,11 +144,11 @@ export class Twitch {
     let params = {
       query,
       limit: count < ELEMENTS_LIMIT_PER_REQ ? count : ELEMENTS_LIMIT_PER_REQ,
-      offset: 0
+      offset: 0,
     }
 
     while (true) {
-      const { _total, channels: respChannels } = await this.fetch('/search/channels', params)
+      const { _total, channels: respChannels } = await this.fetch(`/search/channels`, params)
       channels = channels.concat(respChannels)
 
       // Break loop if last response page or count is reached.
@@ -168,11 +168,11 @@ export class Twitch {
   /**
    * Get channel info.
    *
-   * @param {Number} channelId
+   * @param {String} channelId
    * @return {Object}
    */
   async channel (channelId) {
-    return this.fetch('/channels/' + channelId)
+    return this.fetch(`/channels/` + channelId)
   }
 
   /**
@@ -185,7 +185,7 @@ export class Twitch {
     let follows = []
     let params = {
       limit: ELEMENTS_LIMIT_PER_REQ,
-      offset: 0
+      offset: 0,
     }
 
     while (true) {

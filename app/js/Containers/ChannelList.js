@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { destroyChannel, toggleChannelFavorite } from 'Actions'
 
-import List from '../Components/Channel/List'
+import List from 'Components/Channel/List'
 
 const mapStateToProps = (state) => ({
   channels: state.channels,

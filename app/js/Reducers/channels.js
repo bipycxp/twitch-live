@@ -5,12 +5,8 @@ export default function (state = [], action) {
     case types.GET_CHANNELS:
       // todo: fetch from db
       return [
-        { name: `arteezy`, favorite: true },
-        { name: `dreadztv`, favorite: true },
-        { name: `illidanstrdoto`, favorite: false },
-        { name: `dendi`, favorite: false },
-        { name: `rxnexus`, favorite: true },
-        { name: `dotamajorru`, favorite: true },
+        { id: 46571894, name: `alohadancetv`, favorite: true },
+        { id: 31089858, name: `dreadztv`, favorite: true },
       ]
     case types.TOGGLE_CHANNEL_FAVORITE:
       return state.map(channel => {
@@ -25,6 +21,11 @@ export default function (state = [], action) {
       })
     case types.DESTROY_CHANNEL:
       return state.filter(channel => channel.name !== action.channel)
+    case types.FETCH_STREAMS_SUCCESS:
+      return state.map(channel => ({
+        ...channel,
+        ...{ live: action.streams.findIndex(stream => channel.id === stream.channelId) !== -1 },
+      }))
     default:
       return state
   }
