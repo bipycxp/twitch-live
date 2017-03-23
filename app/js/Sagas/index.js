@@ -1,23 +1,13 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { fork } from 'redux-saga/effects'
 
-import * as actions from 'Actions'
-import types from 'Actions/types'
-
-import Twitch from 'Twitch'
-
-function* fetchStreams (action) {
-  try {
-    const streams = yield call(Twitch.streams.bind(Twitch), action.channels)
-
-    yield put(actions.fetchStreamsSuccess(streams))
-  } catch (e) {
-    console.error(e)
-    yield put(actions.fetchStreamsFailure(e))
-  }
-}
+import rootChannelsSaga from 'Sagas/Roots/channels'
+import rootStreamsSaga from 'Sagas/Roots/streams'
 
 function* rootSaga () {
-  yield takeLatest(types.FETCH_STREAMS, fetchStreams)
+  yield [
+    fork(rootChannelsSaga),
+    fork(rootStreamsSaga),
+  ]
 }
 
 export default rootSaga
