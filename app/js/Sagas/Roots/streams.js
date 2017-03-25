@@ -5,9 +5,9 @@ import types from 'Actions/types'
 
 import Twitch from 'Twitch'
 
-function* fetchStreams (action) {
+function* fetchStreams ({ channels }) {
   try {
-    const streams = yield call(Twitch.streams.bind(Twitch), action.channels)
+    const streams = yield call(Twitch.streams.bind(Twitch), channels)
 
     yield put(fetchStreamsSuccess(streams))
   } catch (e) {

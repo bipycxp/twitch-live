@@ -22,12 +22,12 @@ export default function ChannelsList (props) {
     dividedList
       .push(
         (<Channel
-          key={channel.name}
+          key={channel.id}
           {...channel}
           onFavorite={onFavorite}
           onDestroy={onDestroy}
         />),
-        (<Divider key={`${channel.name}_divider`} className={cx(`divider`)} />)
+        (<Divider key={`${channel.id}_divider`} className={cx(`divider`)} />)
       )
   })
   // Remove last divider.

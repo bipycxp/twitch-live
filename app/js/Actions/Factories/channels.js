@@ -21,17 +21,25 @@ export const fetchChannelsFailure = (error) => ({
 })
 
 /**
- * @param channel String
+ * @param channel Channel
  */
-export const toggleChannelFavorite = (channel) => ({
+export const addChannel = (channel) => ({
   channel,
+  type: types.ADD_CHANNEL,
+})
+
+/**
+ * @param id String
+ */
+export const toggleChannelFavorite = (id) => ({
+  id,
   type: types.TOGGLE_CHANNEL_FAVORITE,
 })
 
 /**
- * @param channel String
+ * @param id String
  */
-export const destroyChannel = (channel) => ({
-  channel,
+export const destroyChannel = (id) => ({
+  id,
   type: types.DESTROY_CHANNEL,
 })

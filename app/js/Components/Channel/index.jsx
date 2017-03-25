@@ -12,6 +12,7 @@ const cx = classNames.bind(styles)
 
 export default class Channel extends React.Component {
   static propTypes = {
+    id: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
     live: React.PropTypes.bool,
     favorite: React.PropTypes.bool,
@@ -26,8 +27,8 @@ export default class Channel extends React.Component {
     onDestroy: () => {},
   }
 
-  handleFavorite = () => this.props.onFavorite(this.props.name)
-  handleDestroy = () => this.props.onDestroy(this.props.name)
+  handleFavorite = () => this.props.onFavorite(this.props.id)
+  handleDestroy = () => this.props.onDestroy(this.props.id)
 
   render () {
     const { name, live, favorite } = this.props

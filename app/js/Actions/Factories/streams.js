@@ -1,7 +1,7 @@
 import types from 'Actions/types'
 
 /**
- * @param channels Number[]
+ * @param channels String[] Array of the channels ids.
  */
 export const fetchStreams = (channels) => ({
   channels,

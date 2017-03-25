@@ -8,8 +8,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onFavorite: channel => dispatch(toggleChannelFavorite(channel)),
-  onDestroy: channel => dispatch(destroyChannel(channel)),
+  onFavorite: id => dispatch(toggleChannelFavorite(id)),
+  onDestroy: id => dispatch(destroyChannel(id)),
 })
 
 const ChannelList = connect(

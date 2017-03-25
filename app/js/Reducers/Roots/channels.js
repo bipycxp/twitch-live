@@ -1,27 +1,35 @@
-import types from 'Actions/types'
+import types from '../../Actions/types'
 
 export default function (state = [], action) {
   switch (action.type) {
     case types.FETCH_CHANNELS_SUCCESS:
       return action.channels
+
     case types.TOGGLE_CHANNEL_FAVORITE:
       return state.map(channel => {
-        if (channel.name !== action.channel) {
+        if (channel.id !== action.id) {
           return channel
         }
 
         return {
           ...channel,
-          ...{ favorite: !channel.favorite },
+          favorite: !channel.favorite,
         }
       })
+
+    case types.ADD_CHANNEL:
+      let { id, name } = action.channel
+      return [ ...state, { id, name, favorite: false } ]
+
     case types.DESTROY_CHANNEL:
-      return state.filter(channel => channel.name !== action.channel)
+      return state.filter(channel => channel.id !== action.id)
+
     case types.FETCH_STREAMS_SUCCESS:
       return state.map(channel => ({
         ...channel,
-        ...{ live: action.streams.findIndex(stream => channel.id === stream.channelId) !== -1 },
+        live: action.streams.findIndex(stream => channel.id === stream.channelId) !== -1,
       }))
+
     default:
       return state
   }

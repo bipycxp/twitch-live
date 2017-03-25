@@ -66,7 +66,7 @@ export class Twitch {
    */
   streamMap (stream) {
     return {
-      channelId: stream.channel._id,
+      channelId: stream.channel._id + ``,
       displayName: stream.channel.display_name,
       game: stream.channel.game, // Full name of the game
       gameUrl: `${TWITCH_URL}/directory/game/${stream.game}`,
@@ -84,7 +84,7 @@ export class Twitch {
   /**
    * Get online streams from channels.
    *
-   * @param {Number[]} channels Array of the channel ids.
+   * @param {String[]} channels Array of the channel ids.
    * @param {Function|false|null} map Map function to mapping streams from response.
    *    If false - without mapping. If not a function - use Twitch.streamMap.
    * @return {Object}
@@ -178,7 +178,7 @@ export class Twitch {
   /**
    * Get user follows.
    *
-   * @param {Number} userId
+   * @param {String} userId
    * @return {Object}
    */
   async follows (userId) {

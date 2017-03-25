@@ -3,8 +3,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import { grey900 } from 'material-ui/styles/colors'
 
 import StreamList from 'Containers/StreamList'
+import ChannelAdd from 'Containers/ChannelAdd'
 import ChannelList from 'Containers/ChannelList'
-// import Settings from 'Components/Settings'
 
 import classNames from 'classnames/bind'
 import styles from './app.scss'
@@ -29,8 +29,8 @@ export default class App extends React.Component {
     return (
       <div className={cx(`app`)}>
         <StreamList />
+        <ChannelAdd />
         <ChannelList />
-        {/* <Settings channels={channels} /> */}
       </div>
     )
   }
