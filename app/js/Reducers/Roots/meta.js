@@ -1,4 +1,4 @@
-import types from '../../Actions/types'
+import types from 'Actions/types'
 
 const INITIAL_STATE = {
   searchChannels: [],

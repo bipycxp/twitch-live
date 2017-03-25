@@ -123,7 +123,7 @@ export class Twitch {
    */
   channelMap (channel) {
     return {
-      id: channel._id,
+      id: channel._id + ``,
       displayName: channel.display_name,
       logo: channel.logo,
       name: channel.name,

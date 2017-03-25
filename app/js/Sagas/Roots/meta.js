@@ -17,17 +17,17 @@ function* fetchSearchChannels ({ query }) {
   }
 }
 
-function* fetchSearchChannelsHandler (action) {
+function* fetchSearchChannelsWorker (action) {
   // Start task in background.
   const task = yield fork(fetchSearchChannels, action)
 
   // Cancel task after action.
-  yield take(types.CLEAR_SEARCH_CHANNELS)
+  yield take([ types.CLEAR_SEARCH_CHANNELS, types.ADD_CHANNEL ])
   yield cancel(task)
 }
 
 function* rootMetaSaga () {
-  yield takeLatest(types.FETCH_SEARCH_CHANNELS, fetchSearchChannelsHandler)
+  yield takeLatest(types.FETCH_SEARCH_CHANNELS, fetchSearchChannelsWorker)
 }
 
 export default rootMetaSaga

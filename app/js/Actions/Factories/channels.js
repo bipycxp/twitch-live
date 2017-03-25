@@ -29,6 +29,22 @@ export const addChannel = (channel) => ({
 })
 
 /**
+ * @param channel Channel
+ */
+export const addChannelSuccess = (channel) => ({
+  channel,
+  type: types.ADD_CHANNEL_SUCCESS,
+})
+
+/**
+ * @param error Error
+ */
+export const addChannelFailure = (error) => ({
+  error,
+  type: types.ADD_CHANNEL_FAILURE,
+})
+
+/**
  * @param id String
  */
 export const toggleChannelFavorite = (id) => ({
@@ -42,4 +58,20 @@ export const toggleChannelFavorite = (id) => ({
 export const destroyChannel = (id) => ({
   id,
   type: types.DESTROY_CHANNEL,
+})
+
+/**
+ * @param channel Channel
+ */
+export const destroyChannelSuccess = (channel) => ({
+  channel,
+  type: types.DESTROY_CHANNEL_SUCCESS,
+})
+
+/**
+ * @param error Error
+ */
+export const destroyChannelFailure = (error) => ({
+  error,
+  type: types.DESTROY_CHANNEL_FAILURE,
 })
