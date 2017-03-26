@@ -24,12 +24,26 @@ function* fetchChannelsWorker () {
 }
 
 function* addChannelWorker ({ channel }) {
+  const channels = yield select(selectChannels)
+
+  const failure = message => put(addChannelFailure(message))
+
+  if (!channel.id || !channel.name) {
+    yield failure(`Bad Channel object format`)
+    return
+  }
+
+  if (channels.find(({ id }) => id === channel.id)) {
+    yield failure(`Channel ${channel.name} already added`)
+    return
+  }
+
   try {
     // @TODO: need to add it to DB.
 
     yield put(addChannelSuccess(channel))
   } catch (e) {
-    yield put(addChannelFailure(e))
+    yield failure(e)
   }
 }
 

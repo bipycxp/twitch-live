@@ -16,11 +16,7 @@ const mapDispatchToProps = (dispatch) => ({
 
     dispatch(fetchSearchChannels(query))
   },
-  onSelect: (channel) => {
-    if (!channel.id || !channel.name) return
-
-    dispatch(addChannel(channel))
-  },
+  onSelect: channel => dispatch(addChannel(channel)),
 })
 
 const AddContainer = connect(
