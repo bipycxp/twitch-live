@@ -8,11 +8,11 @@ const cx = classNames.bind(styles)
 
 export default class LiveTime extends React.Component {
   static propTypes = {
-    started: React.PropTypes.string.isRequired
+    started: React.PropTypes.string.isRequired,
   }
 
   state = {
-    short: true
+    short: true,
   }
 
   onFocusHandler = () => this.setState({ short: false })
@@ -23,8 +23,8 @@ export default class LiveTime extends React.Component {
     let { short } = this.state
 
     return (
-      <div className={cx('liveTime')} onMouseEnter={this.onFocusHandler} onMouseLeave={this.onBlurHandler}>
-        {'live ' + toNow(started, short)}
+      <div className={cx(`liveTime`)} onMouseEnter={this.onFocusHandler} onMouseLeave={this.onBlurHandler}>
+        {`live ${toNow(started, short)}`}
       </div>
     )
   }

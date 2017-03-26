@@ -22,10 +22,10 @@ export default function toNow (started, short = false) {
   let time = []
 
   // If time field isn't empty - push to `time` with short name.
-  days && time.push(days + 'd')
-  hours && time.push(hours + 'h')
-  minutes && time.push(minutes + 'm')
+  days && time.push(`${days}d`)
+  hours && time.push(`${hours}h`)
+  minutes && time.push(`${minutes}m`)
 
   // Return string with space between time fields.
-  return time.join(' ')
+  return time.join(` `)
 }
