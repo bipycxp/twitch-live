@@ -1,5 +1,6 @@
 import React from 'react'
 import IconButton from 'material-ui/IconButton'
+import Checkbox from 'material-ui/Checkbox'
 import ActionFavorite from 'material-ui/svg-icons/action/favorite'
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border'
 import NavigationClose from 'material-ui/svg-icons/navigation/close'
@@ -33,8 +34,6 @@ export default class Channel extends React.Component {
   render () {
     const { name, live, favorite } = this.props
 
-    const Heart = favorite ? ActionFavorite : ActionFavoriteBorder
-
     return (
       <div className={cx(`channel`, { favorite })}>
         <div className={cx(`title`)}>
@@ -44,9 +43,13 @@ export default class Channel extends React.Component {
           {name}
         </div>
         <div className={cx(`actions`)}>
-          <IconButton className={cx(`action`)} onClick={this.handleFavorite}>
-            <Heart className={cx(`icon`, `heart`, { favorite })} />
-          </IconButton>
+          <Checkbox
+            className={cx(`action`, `checkbox`)}
+            checked={favorite}
+            onCheck={this.handleFavorite}
+            checkedIcon={<ActionFavorite className={cx(`icon`, `red`)} />}
+            uncheckedIcon={<ActionFavoriteBorder className={cx(`icon`)} />}
+          />
           <IconButton className={cx(`action`)} onClick={this.handleDestroy}>
             <NavigationClose className={cx(`icon`)} />
           </IconButton>
