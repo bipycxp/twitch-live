@@ -5,7 +5,7 @@ import ActionFavorite from 'material-ui/svg-icons/action/favorite'
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border'
 import NavigationClose from 'material-ui/svg-icons/navigation/close'
 
-import LiveStatus from 'Components/LiveStatus'
+import LiveStatus from './LiveStatus'
 
 import classNames from 'classnames/bind'
 import styles from './channel.scss'

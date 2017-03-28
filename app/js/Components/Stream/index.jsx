@@ -2,7 +2,7 @@ import React from 'react'
 import Paper from 'material-ui/Paper'
 import ActionAccountCircle from 'material-ui/svg-icons/action/account-circle'
 
-import LiveTime from 'Components/LiveTime'
+import LiveTime from './LiveTime'
 
 import separateNumber from 'utils/separateNumber'
 
