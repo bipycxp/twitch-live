@@ -6,65 +6,65 @@ const ELEMENTS_LIMIT_PER_REQ = 100
 
 const tests = [
   {
-    title: 'User have 10 follows',
+    title: `User have 10 follows`,
     entry: {
-      user: 'a',
-      pagingFollowsCount: [ 10 ]
+      user: `a`,
+      pagingFollowsCount: [ 10 ],
     },
     expected: {
       followsCount: 10,
       fetchCallsCount: 1,
-      pagingOffset: [ 0 ]
-    }
+      pagingOffset: [ 0 ],
+    },
   },
   {
-    title: 'User have 100 follows',
+    title: `User have 100 follows`,
     entry: {
-      user: 'b',
-      pagingFollowsCount: [ 100 ]
+      user: `b`,
+      pagingFollowsCount: [ 100 ],
     },
     expected: {
       followsCount: 100,
       fetchCallsCount: 1,
-      pagingOffset: [ 0 ]
-    }
+      pagingOffset: [ 0 ],
+    },
   },
   {
-    title: 'User have 150 follows',
+    title: `User have 150 follows`,
     entry: {
-      user: 'b',
-      pagingFollowsCount: [ 100, 50 ]
+      user: `b`,
+      pagingFollowsCount: [ 100, 50 ],
     },
     expected: {
       followsCount: 150,
       fetchCallsCount: 2,
-      pagingOffset: [ 0, 100 ]
-    }
+      pagingOffset: [ 0, 100 ],
+    },
   },
   {
-    title: 'User have 200 follows',
+    title: `User have 200 follows`,
     entry: {
-      user: 'c',
-      pagingFollowsCount: [ 100, 100 ]
+      user: `c`,
+      pagingFollowsCount: [ 100, 100 ],
     },
     expected: {
       followsCount: 200,
       fetchCallsCount: 2,
-      pagingOffset: [ 0, 100 ]
-    }
+      pagingOffset: [ 0, 100 ],
+    },
   },
   {
-    title: 'User have 250 follows',
+    title: `User have 250 follows`,
     entry: {
-      user: 'b',
-      pagingFollowsCount: [ 100, 100, 50 ]
+      user: `b`,
+      pagingFollowsCount: [ 100, 100, 50 ],
     },
     expected: {
       followsCount: 250,
       fetchCallsCount: 3,
-      pagingOffset: [ 0, 100, 200 ]
-    }
-  }
+      pagingOffset: [ 0, 100, 200 ],
+    },
+  },
 ]
 
 tests.forEach(({ title, entry, expected }) => test.serial(title, async (t) => {
@@ -75,7 +75,7 @@ tests.forEach(({ title, entry, expected }) => test.serial(title, async (t) => {
     t.is(path, `/users/${entry.user}/follows/channels`)
     t.deepEqual(params, {
       limit: ELEMENTS_LIMIT_PER_REQ,
-      offset: expected.pagingOffset[callIndex]
+      offset: expected.pagingOffset[callIndex],
     })
 
     let follows = new Array(entry.pagingFollowsCount[callIndex])

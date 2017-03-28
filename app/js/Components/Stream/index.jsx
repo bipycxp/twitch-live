@@ -15,7 +15,6 @@ Stream.propTypes = {
   game: React.PropTypes.string.isRequired,
   gameUrl: React.PropTypes.string.isRequired,
   logo: React.PropTypes.string.isRequired,
-  name: React.PropTypes.string.isRequired,
   status: React.PropTypes.string.isRequired,
   url: React.PropTypes.string.isRequired,
   viewers: React.PropTypes.number.isRequired,

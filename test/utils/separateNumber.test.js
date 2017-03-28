@@ -4,44 +4,44 @@ import separateNumber from 'utils/separateNumber'
 
 const tests = [
   {
-    title: 'Small number',
+    title: `Small number`,
     entry: {
       number: 100,
-      separator: ','
+      separator: `,`,
     },
-    expected: '100'
+    expected: `100`,
   },
   {
-    title: 'Middle number',
+    title: `Middle number`,
     entry: {
       number: 11900,
-      separator: ','
+      separator: `,`,
     },
-    expected: '11,900'
+    expected: `11,900`,
   },
   {
-    title: 'Big number',
+    title: `Big number`,
     entry: {
       number: 11124900,
-      separator: ','
+      separator: `,`,
     },
-    expected: '11,124,900'
+    expected: `11,124,900`,
   },
   {
-    title: 'Check default separator',
+    title: `Check default separator`,
     entry: {
-      number: 2100
+      number: 2100,
     },
-    expected: '2,100'
+    expected: `2,100`,
   },
   {
-    title: 'Check custom separator',
+    title: `Check custom separator`,
     entry: {
       number: 25200,
-      separator: '.'
+      separator: `.`,
     },
-    expected: '25.200'
-  }
+    expected: `25.200`,
+  },
 ]
 
 tests.forEach(async ({ title, entry, expected }) => test(title, async (t) => {

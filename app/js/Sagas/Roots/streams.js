@@ -5,7 +5,7 @@ import types from 'Actions/types'
 
 import Twitch from 'Twitch'
 
-function* fetchStreamsWorker ({ channels }) {
+function * fetchStreamsWorker ({ channels }) {
   try {
     const streams = yield call(Twitch.streams.bind(Twitch), channels)
 
@@ -15,7 +15,7 @@ function* fetchStreamsWorker ({ channels }) {
   }
 }
 
-function* rootStreamsSaga () {
+function * rootStreamsSaga () {
   yield takeLatest(types.FETCH_STREAMS, fetchStreamsWorker)
 }
 

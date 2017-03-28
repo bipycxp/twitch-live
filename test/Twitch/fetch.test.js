@@ -5,69 +5,69 @@ import Twitch from 'Twitch'
 
 import querystring from 'querystring'
 
-const { twitch } = require('config.js')
+const { twitch } = require(`config.js`)
 
 const tests = [
   {
-    title: 'Success request with status 200',
+    title: `Success request with status 200`,
     entry: {
-      path: '/a/g',
-      params: { a: 'b', c: 'd' }
+      path: `/a/g`,
+      params: { a: `b`, c: `d` },
     },
     expected: {
-      json: () => 'json',
+      json: () => `json`,
       status: 200,
-      statusText: 'success'
-    }
+      statusText: `success`,
+    },
   },
   {
-    title: 'Success request with status 250',
+    title: `Success request with status 250`,
     entry: {
-      path: '/a/g',
-      params: { a: 'b', c: 'd' }
+      path: `/a/g`,
+      params: { a: `b`, c: `d` },
     },
     expected: {
-      json: () => 'json',
+      json: () => `json`,
       status: 250,
-      statusText: 'success'
-    }
+      statusText: `success`,
+    },
   },
   {
-    title: 'Bad request with status 100',
+    title: `Bad request with status 100`,
     entry: {
-      path: '/a/g',
-      params: { a: 'b', c: 'd' }
+      path: `/a/g`,
+      params: { a: `b`, c: `d` },
     },
     expected: {
-      json: () => 'json',
+      json: () => `json`,
       status: 100,
-      statusText: 'error'
-    }
+      statusText: `error`,
+    },
   },
   {
-    title: 'Bad request with status 300',
+    title: `Bad request with status 300`,
     entry: {
-      path: '/a/g',
-      params: { a: 'b', c: 'd' }
+      path: `/a/g`,
+      params: { a: `b`, c: `d` },
     },
     expected: {
-      json: () => 'json',
+      json: () => `json`,
       status: 300,
-      statusText: 'error'
-    }
+      statusText: `error`,
+    },
   },
   {
-    title: 'Bad request with status 350',
+    title: `Bad request with status 350`,
     entry: {
-      path: '/a/g',
-      params: { a: 'b', c: 'd' }
+      path: `/a/g`,
+      params: { a: `b`, c: `d` },
     },
     expected: {
-      json: () => 'json',
+      json: () => `json`,
       status: 350,
-      statusText: 'error'
-    }
-  }
+      statusText: `error`,
+    },
+  },
 ]
 
 tests.forEach(async ({ title, entry, expected }) => test(title, async (t) => {
@@ -75,10 +75,10 @@ tests.forEach(async ({ title, entry, expected }) => test(title, async (t) => {
   global.fetch = sinon.spy(async (path, params) => {
     const headers = {
       'Accept': `application/vnd.twitchtv.${twitch.apiVersion}+json`,
-      'Client-ID': Twitch.getClientId()
+      'Client-ID': Twitch.getClientId(),
     }
 
-    t.is(path, twitch.apiUrl + entry.path + '?' + querystring.stringify(entry.params))
+    t.is(path, twitch.apiUrl + entry.path + `?` + querystring.stringify(entry.params))
     t.deepEqual(params, { headers })
 
     return expected

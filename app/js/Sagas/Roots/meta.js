@@ -7,7 +7,7 @@ import types from 'Actions/types'
 
 import Twitch from 'Twitch'
 
-function* fetchSearchChannels ({ query }) {
+function * fetchSearchChannels ({ query }) {
   try {
     const channels = yield call(Twitch.searchChannels.bind(Twitch), query)
 
@@ -17,7 +17,7 @@ function* fetchSearchChannels ({ query }) {
   }
 }
 
-function* fetchSearchChannelsWorker (action) {
+function * fetchSearchChannelsWorker (action) {
   // Start task in background.
   const task = yield fork(fetchSearchChannels, action)
 
@@ -26,7 +26,7 @@ function* fetchSearchChannelsWorker (action) {
   yield cancel(task)
 }
 
-function* rootMetaSaga () {
+function * rootMetaSaga () {
   yield takeLatest(types.FETCH_SEARCH_CHANNELS, fetchSearchChannelsWorker)
 }
 

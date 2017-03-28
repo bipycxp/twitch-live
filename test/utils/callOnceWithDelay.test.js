@@ -1,3 +1,3 @@
 import test from 'ava'
 
-test.todo('Test callOnceWithDelay')
+test.todo(`Test callOnceWithDelay`)

@@ -9,7 +9,7 @@ import {
 import types from 'Actions/types'
 import { selectChannels } from 'Sagas/Selectors'
 
-function* fetchChannelsWorker () {
+function * fetchChannelsWorker () {
   try {
     // @TODO: need to fetch it from DB.
     const channels = [
@@ -23,7 +23,7 @@ function* fetchChannelsWorker () {
   }
 }
 
-function* addChannelWorker ({ channel }) {
+function * addChannelWorker ({ channel }) {
   const channels = yield select(selectChannels)
 
   const failure = message => put(addChannelFailure(message))
@@ -47,7 +47,7 @@ function* addChannelWorker ({ channel }) {
   }
 }
 
-function* destroyChannelWorker ({ id }) {
+function * destroyChannelWorker ({ id }) {
   try {
     // @TODO: need to remove it from DB.
 
@@ -59,13 +59,13 @@ function* destroyChannelWorker ({ id }) {
   }
 }
 
-function* updateStreamsWorker () {
+function * updateStreamsWorker () {
   const channels = (yield select(selectChannels)).map(channel => channel.id)
 
   yield put(fetchStreams(channels))
 }
 
-function* rootChannelsSaga () {
+function * rootChannelsSaga () {
   yield takeLatest(types.FETCH_CHANNELS, fetchChannelsWorker)
   yield takeLatest(types.ADD_CHANNEL, addChannelWorker)
   yield takeLatest(types.DESTROY_CHANNEL, destroyChannelWorker)

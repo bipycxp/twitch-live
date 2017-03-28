@@ -3,80 +3,80 @@ import sinon from 'sinon'
 
 import toNow from 'utils/toNow'
 
-const NOW = '2016-10-12T00:00:00.000Z'
+const NOW = `2016-10-12T00:00:00.000Z`
 
 const tests = [
   {
-    title: 'Started day ago(full)',
+    title: `Started day ago(full)`,
     entry: {
-      started: '2016-10-11T00:00:00.000Z',
-      short: false
+      started: `2016-10-11T00:00:00.000Z`,
+      short: false,
     },
-    expected: '1d'
+    expected: `1d`,
   },
   {
-    title: 'Started day ago(short)',
+    title: `Started day ago(short)`,
     entry: {
-      started: '2016-10-11T00:00:00.000Z',
-      short: true
+      started: `2016-10-11T00:00:00.000Z`,
+      short: true,
     },
-    expected: 'a day'
+    expected: `a day`,
   },
   {
-    title: 'Started one hour ago(full)',
+    title: `Started one hour ago(full)`,
     entry: {
-      started: '2016-10-11T23:00:00.000Z',
-      short: false
+      started: `2016-10-11T23:00:00.000Z`,
+      short: false,
     },
-    expected: '1h'
+    expected: `1h`,
   },
   {
-    title: 'Started one hours ago(short)',
+    title: `Started one hours ago(short)`,
     entry: {
-      started: '2016-10-11T23:00:00.000Z',
-      short: true
+      started: `2016-10-11T23:00:00.000Z`,
+      short: true,
     },
-    expected: 'an hour'
+    expected: `an hour`,
   },
   {
-    title: 'Started 10 minutes ago(full)',
+    title: `Started 10 minutes ago(full)`,
     entry: {
-      started: '2016-10-11T23:50:00.000Z',
-      short: false
+      started: `2016-10-11T23:50:00.000Z`,
+      short: false,
     },
-    expected: '10m'
+    expected: `10m`,
   },
   {
-    title: 'Started 10 minutes ago(short)',
+    title: `Started 10 minutes ago(short)`,
     entry: {
-      started: '2016-10-11T23:50:00.000Z',
-      short: true
+      started: `2016-10-11T23:50:00.000Z`,
+      short: true,
     },
-    expected: '10 minutes'
+    expected: `10 minutes`,
   },
   {
-    title: 'Started ~2 days ago(full)',
+    title: `Started ~2 days ago(full)`,
     entry: {
-      started: '2016-10-10T01:35:25.000Z',
-      short: false
+      started: `2016-10-10T01:35:25.000Z`,
+      short: false,
     },
-    expected: '1d 22h 24m'
+    expected: `1d 22h 24m`,
   },
   {
-    title: 'Started ~2 days ago(short)',
+    title: `Started ~2 days ago(short)`,
     entry: {
-      started: '2016-10-10T01:35:25.000Z',
-      short: true
+      started: `2016-10-10T01:35:25.000Z`,
+      short: true,
     },
-    expected: '2 days'
+    expected: `2 days`,
   },
   {
-    title: 'Test default `short` parameter',
+    title: `Test default 'short' parameter`,
     entry: {
-      started: '2016-10-11T00:00:00.000Z'
+      started: `2016-10-11T00:00:00.000Z`,
     },
-    expected: '1d'
-  }
+    expected: `1d`,
+  },
 ]
 
 tests.forEach(async ({ title, entry, expected }) => test(title, async (t) => {

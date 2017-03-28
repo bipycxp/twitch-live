@@ -5,18 +5,18 @@ import Twitch from 'Twitch'
 
 const tests = [
   {
-    title: 'Correct channel',
+    title: `Correct channel`,
     entry: {
-      channel: 'a'
+      channel: `a`,
     },
-    expected: 'channel'
-  }
+    expected: `channel`,
+  },
 ]
 
 tests.forEach(async ({ title, entry, expected }) => test(title, async (t) => {
   // Spy Twitch.fetch.
   Twitch.fetch = sinon.spy(async (path) => {
-    t.is(path, '/channels/' + entry.channel)
+    t.is(path, `/channels/` + entry.channel)
     return expected
   })
 
