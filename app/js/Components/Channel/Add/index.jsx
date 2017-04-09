@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import AutoComplete from 'material-ui/AutoComplete'
 
 import callOnceWithDelay from 'utils/callOnceWithDelay'
@@ -8,14 +9,14 @@ import styles from './add.scss'
 const cx = classNames.bind(styles)
 
 AddChannel.propTypes = {
-  searchChannels: React.PropTypes.array.isRequired,
-  onSearch: React.PropTypes.func.isRequired,
-  onSelect: React.PropTypes.func.isRequired,
-  searchDelay: React.PropTypes.number,
-  floatingLabel: React.PropTypes.string,
-  hintLabel: React.PropTypes.string,
-  dataConfig: React.PropTypes.object,
-  filter: React.PropTypes.func,
+  searchChannels: PropTypes.array.isRequired,
+  onSearch: PropTypes.func.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  searchDelay: PropTypes.number,
+  floatingLabel: PropTypes.string,
+  hintLabel: PropTypes.string,
+  dataConfig: PropTypes.object,
+  filter: PropTypes.func,
 }
 
 AddChannel.defaultProps = {

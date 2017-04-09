@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Divider from 'material-ui/Divider'
 
 import Channel from '../index'
@@ -8,9 +9,9 @@ import styles from './list.scss'
 const cx = classNames.bind(styles)
 
 ChannelsList.propTypes = {
-  channels: React.PropTypes.array.isRequired,
-  onFavorite: React.PropTypes.func,
-  onDestroy: React.PropTypes.func,
+  channels: PropTypes.array.isRequired,
+  onFavorite: PropTypes.func,
+  onDestroy: PropTypes.func,
 }
 
 export default function ChannelsList (props) {

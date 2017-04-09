@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Paper from 'material-ui/Paper'
 import ActionAccountCircle from 'material-ui/svg-icons/action/account-circle'
 
@@ -11,15 +12,15 @@ import styles from './stream.scss'
 const cx = classNames.bind(styles)
 
 Stream.propTypes = {
-  displayName: React.PropTypes.string.isRequired,
-  game: React.PropTypes.string.isRequired,
-  gameUrl: React.PropTypes.string.isRequired,
-  logo: React.PropTypes.string.isRequired,
-  status: React.PropTypes.string.isRequired,
-  url: React.PropTypes.string.isRequired,
-  viewers: React.PropTypes.number.isRequired,
-  datetime: React.PropTypes.shape({
-    started: React.PropTypes.string.isRequired,
+  displayName: PropTypes.string.isRequired,
+  game: PropTypes.string.isRequired,
+  gameUrl: PropTypes.string.isRequired,
+  logo: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  viewers: PropTypes.number.isRequired,
+  datetime: PropTypes.shape({
+    started: PropTypes.string.isRequired,
   }).isRequired,
 }
 

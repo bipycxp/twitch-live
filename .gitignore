@@ -1,8 +1,9 @@
 # Code editor config
 .idea
 
-# App config
-app/js/config.js
+# Config
+config/client-config/*
+!config/client-config/example.js
 
 # App dependencies
 node_modules/
@@ -12,3 +13,6 @@ yarn-error.log
 
 # Old app (@TODO: delete)
 app-old
+
+# Dist
+dist

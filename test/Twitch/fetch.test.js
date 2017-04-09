@@ -1,11 +1,9 @@
 import test from 'ava'
 import sinon from 'sinon'
-
-import Twitch from 'Twitch'
-
 import querystring from 'querystring'
 
-const { twitch } = require(`config.js`)
+import TwitchClient from 'Twitch/Client'
+const Twitch = new TwitchClient({ clientId: `id` })
 
 const tests = [
   {
@@ -74,11 +72,11 @@ tests.forEach(async ({ title, entry, expected }) => test(title, async (t) => {
   // Spy global.fetch.
   global.fetch = sinon.spy(async (path, params) => {
     const headers = {
-      'Accept': `application/vnd.twitchtv.${twitch.apiVersion}+json`,
+      'Accept': `application/vnd.twitchtv.${Twitch.getApiVersion()}+json`,
       'Client-ID': Twitch.getClientId(),
     }
 
-    t.is(path, twitch.apiUrl + entry.path + `?` + querystring.stringify(entry.params))
+    t.is(path, Twitch.getApiUrl() + entry.path + `?` + querystring.stringify(entry.params))
     t.deepEqual(params, { headers })
 
     return expected

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import IconButton from 'material-ui/IconButton'
 import Checkbox from 'material-ui/Checkbox'
 import ActionFavorite from 'material-ui/svg-icons/action/favorite'
@@ -13,12 +14,12 @@ const cx = classNames.bind(styles)
 
 export default class Channel extends React.Component {
   static propTypes = {
-    id: React.PropTypes.string.isRequired,
-    name: React.PropTypes.string.isRequired,
-    live: React.PropTypes.bool,
-    favorite: React.PropTypes.bool,
-    onFavorite: React.PropTypes.func,
-    onDestroy: React.PropTypes.func,
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    live: PropTypes.bool,
+    favorite: PropTypes.bool,
+    onFavorite: PropTypes.func,
+    onDestroy: PropTypes.func,
   }
 
   static defaultProps = {

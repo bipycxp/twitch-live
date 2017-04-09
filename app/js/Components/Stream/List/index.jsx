@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import Stream from 'Components/Stream'
 
@@ -7,7 +8,7 @@ import styles from './list.scss'
 const cx = classNames.bind(styles)
 
 List.propTypes = {
-  streams: React.PropTypes.array.isRequired,
+  streams: PropTypes.array.isRequired,
 }
 
 export default function List (props) {

@@ -1,7 +1,9 @@
 import test from 'ava'
 import sinon from 'sinon'
 
-import Twitch from 'Twitch'
+import TwitchClient from 'Twitch/Client'
+const Twitch = new TwitchClient({ clientId: `id` })
+
 const ELEMENTS_LIMIT_PER_REQ = 100
 const DEFAULT_SEARCH_COUNT = 5
 

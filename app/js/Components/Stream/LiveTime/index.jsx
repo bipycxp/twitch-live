@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import toNow from 'utils/toNow'
 
@@ -8,7 +9,7 @@ const cx = classNames.bind(styles)
 
 export default class LiveTime extends React.Component {
   static propTypes = {
-    started: React.PropTypes.string.isRequired,
+    started: PropTypes.string.isRequired,
   }
 
   state = {

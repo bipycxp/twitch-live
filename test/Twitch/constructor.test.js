@@ -1,10 +1,17 @@
 import test from 'ava'
 
-import { Twitch } from 'Twitch'
+import TwitchClient from 'Twitch/Client'
 
 test(`Check constructor`, async (t) => {
   const clientId = `id`
-  const twitch = new Twitch({ clientId })
+  const apiVersion = `version`
+  const apiUrl = `api`
+  const twitchUrl = `twitch`
 
-  t.is(twitch.getClientId(), clientId)
+  const Twitch = new TwitchClient({ clientId, apiVersion, apiUrl, twitchUrl })
+
+  t.is(Twitch.getClientId(), clientId)
+  t.is(Twitch.getApiVersion(), apiVersion)
+  t.is(Twitch.getApiUrl(), apiUrl)
+  t.is(Twitch.getTwitchUrl(), twitchUrl)
 })

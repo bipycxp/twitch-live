@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import { grey900 } from 'material-ui/styles/colors'
 
@@ -11,7 +12,7 @@ const cx = classNames.bind(styles)
 
 export default class App extends React.Component {
   static childContextTypes = {
-    muiTheme: React.PropTypes.object.isRequired,
+    muiTheme: PropTypes.object.isRequired,
   }
 
   getChildContext () {
