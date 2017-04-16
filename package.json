@@ -85,7 +85,7 @@
   },
   "ava": {
     "files": [
-      "./test/"
+      "./test/**/*.test.js"
     ],
     "verbose": true,
     "require": [

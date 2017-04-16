@@ -3,7 +3,8 @@
     "browser": true
   },
   "globals": {
-    "requie": true
+    "requie": true,
+    "chrome": true
   },
   "extends": [
     "standard",

@@ -31,6 +31,7 @@ module.exports = {
 
   permissions: [
     `notifications`,
+    `storage`,
     `https://www.twitch.tv/*`, // @TODO: get it from config or Twitch class.
   ],
 }
