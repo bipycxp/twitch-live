@@ -1,0 +1,74 @@
+@import "../variables";
+
+body {
+  margin: 0;
+}
+
+@keyframes show-menu {
+  from {
+    top: 340px;
+    height: 40px;
+  }
+  to {
+    top: 0;
+    height: 340px;
+  }
+}
+
+@keyframes close-menu {
+  from {
+    top: 0;
+    height: 340px;
+  }
+  to {
+    top: 340px;
+    height: 40px;
+  }
+}
+
+.content {
+  position: absolute;
+  overflow: hidden;
+  height: 40px;
+  width: 450px;
+  z-index: 200;
+  background-color: #67b5d1;
+
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.slide-down {
+  animation-name: close-menu;
+}
+
+.slide-top {
+  animation-name: show-menu;
+}
+
+.content {
+
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+.menu-content {
+  float: left;
+  width: 330px;
+  padding: 0 0 0 10px;
+  box-sizing: border-box;
+
+  background: $white;
+}
+
+.button {
+  height: 40px;
+  color: #fff;
+  background-color: #3184a1;
+  font-size: 14px;
+  cursor: pointer;
+}

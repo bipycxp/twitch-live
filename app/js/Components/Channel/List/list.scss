@@ -1,4 +1,11 @@
+@import "../../variables";
+
 .list {
+
+  height: 220px;
+  overflow: hidden;
+  background: $white;
+
   .divider {
     margin: 0 !important;
   }
