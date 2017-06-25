@@ -1,36 +1,73 @@
 import React from 'react'
-import { Tabs, Tab } from 'material-ui/Tabs'
 
 // @todo do something with containers.
 import ChannelAdd from 'Containers/ChannelAdd'
 import ChannelList from 'Containers/ChannelList'
 
+import Menu from 'material-ui/Menu'
+import MenuItem from 'material-ui/MenuItem'
+
+import classNames from 'classnames/bind'
+import styles from './settings.scss'
+const cx = classNames.bind(styles)
+
 const CHANNELS_TAB_NAME = `channels`
 const NOTIFIES_TAB_NAME = `notifies`
 
 export default class Settings extends React.Component {
-  state = {
-    activeTab: CHANNELS_TAB_NAME,
+  constructor (props) {
+    super(props)
+    this.state = {
+      show: false,
+      activeTab: CHANNELS_TAB_NAME,
+    }
   }
 
-  handleChange = activeTab => this.setState({ activeTab });
+  handleChange = (element, activeTab) => {
+    this.setState({activeTab})
+  }
+
+  openSettings = () => {
+    this.setState((prevState) => ({
+      open: !prevState.open,
+      activeClass: prevState.open ? `slide-down` : `slide-top`,
+    }))
+  }
 
   render () {
-    const { activeTab } = this.state
+    const menuStyle = {
+      float: `left`,
+      width: `112px !important`,
+      padding: `0 !important`,
+    }
+    const listStyle = {
+      paddingTop: `0 !important`,
+      paddingBottom: `0 !important`,
+      padding: `0 !important`,
+    }
 
-    return (
-      <Tabs
-        value={activeTab}
-        onChange={this.handleChange}
-      >
-        <Tab label={CHANNELS_TAB_NAME} value={CHANNELS_TAB_NAME}>
+    const {activeTab} = this.state
+    const content = {
+      [CHANNELS_TAB_NAME]: (
+        <section className=''>
           <ChannelAdd />
           <ChannelList />
-        </Tab>
-        <Tab label={NOTIFIES_TAB_NAME} value={NOTIFIES_TAB_NAME}>
-          Notifies
-        </Tab>
-      </Tabs>
+        </section>
+      ),
+      [NOTIFIES_TAB_NAME]: (<section>Notifies</section>),
+    }
+
+    return (
+      <div className={cx(`content`) + cx(` `) + cx(`${this.state.activeClass}`)}>
+        <div onClick={this.openSettings} className={cx(`button`)}>Settings</div>
+        <Menu style={menuStyle} listStyle={listStyle} onChange={this.handleChange}>
+          <MenuItem primaryText={CHANNELS_TAB_NAME} value={CHANNELS_TAB_NAME} />
+          <MenuItem primaryText={NOTIFIES_TAB_NAME} value={NOTIFIES_TAB_NAME} />
+        </Menu>
+        <div className={cx(`menu-content`)}>
+          {content[activeTab]}
+        </div>
+      </div>
     )
   }
 }
