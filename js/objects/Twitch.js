@@ -17,6 +17,11 @@ Number.prototype.toHms = function (s) {
 
 var client_id = 'YOUR_CLIENT_ID';
 
+function setRequestHeaders (request) {
+  request.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
+  request.setRequestHeader('Client-ID', client_id);
+}
+
 var Twitch = function () {
     'use strict';
     this.userFollows = [];
@@ -33,60 +38,86 @@ Twitch.prototype = {
 
         this.streams = [];
 
-        var self = this,
-            data = {
-                channel : channels.join(','),
-                limit : 100,
-                offset : 0
-            };
+        var self = this;
+        var limit = 100;
+        var offset = 0;
 
         (function streams() {
-            $.ajax({
+          var requestedChannels = channels.slice(offset, limit + offset);
+
+          if (!requestedChannels.length) {
+            $(document)
+              .trigger('successGetStreams');
+
+            return true;
+          }
+
+          $.ajax({
+            url : 'https://api.twitch.tv/helix/users',
+            data : { login: requestedChannels },
+            type : 'GET',
+            beforeSend: function (request) {
+              setRequestHeaders(request)
+            },
+            success : function (response) {
+              $.ajax({
                 url : 'https://api.twitch.tv/kraken/streams',
-                data : data,
+                data : {
+                  channel: response.data.map(function (channel) {
+                    return channel.id;
+                  }),
+                  limit : limit,
+                  offset : 0
+                },
                 type : 'GET',
                 beforeSend: function (request) {
-                    request.setRequestHeader('Client-ID', client_id);
+                  setRequestHeaders(request)
                 },
                 success : function (response) {
-                    self.streams = self.streams.concat(response.streams);
+                  self.streams = self.streams.concat(response.streams);
 
-                    if (response.streams.length === data.limit && self.streams.length < response._total) {
-                        data.offset += data.limit;
+                  if (channels.length > self.streams.length) {
+                    offset += limit;
 
-                        streams();
+                    streams();
 
-                        return false;
-                    }
+                    return false;
+                  }
 
-                    self.streams = self.streams.map(function (stream) {
-                        return {
-                            game : stream.game,
-                            viewers : stream.viewers,
-                            start_at : stream.created_at,
-                            live : Math.floor((new Date() - new Date(stream.created_at)) / 1000).toHms(),
-                            channel : {
-                                status : stream.channel.status,
-                                name : stream.channel.name,
-                                display_name : stream.channel.display_name,
-                                logo : stream.channel.logo,
-                                url : stream.channel.url
-                            }
-                        };
-                    });
+                  self.streams = self.streams.map(function (stream) {
+                    return {
+                      game : stream.game,
+                      viewers : stream.viewers,
+                      start_at : stream.created_at,
+                      live : Math.floor((new Date() - new Date(stream.created_at)) / 1000).toHms(),
+                      channel : {
+                        status : stream.channel.status,
+                        name : stream.channel.name,
+                        display_name : stream.channel.display_name,
+                        logo : stream.channel.logo,
+                        url : stream.channel.url
+                      }
+                    };
+                  });
 
-                    self.streams.sort(function (a, b) {
-                        return b.viewers - a.viewers;
-                    });
+                  self.streams.sort(function (a, b) {
+                    return b.viewers - a.viewers;
+                  });
 
-                    $(document)
-                        .trigger('successGetStreams');
+                  $(document)
+                    .trigger('successGetStreams');
                 },
                 error : function () {
-                    $(document)
-                        .trigger('errorGetStreams');
+                  $(document)
+                    .trigger('errorGetStreams');
                 }
-            });
+              });
+            },
+            error : function () {
+              $(document)
+                .trigger('errorCheckChannel');
+            }
+          });
         }());
     },
 
@@ -105,38 +136,52 @@ Twitch.prototype = {
         this.userFollows = [];
 
         (function follows() {
-            $.ajax({
-                url : 'https://api.twitch.tv/kraken/users/' + user + '/follows/channels',
+          $.ajax({
+            url : 'https://api.twitch.tv/helix/users',
+            data : { login: user },
+            type : 'GET',
+            beforeSend: function (request) {
+              setRequestHeaders(request)
+            },
+            success : function (response) {
+              $.ajax({
+                url : 'https://api.twitch.tv/kraken/users/' + response.data[0].id + '/follows/channels',
                 data : data,
                 type : 'GET',
                 beforeSend: function (request) {
-                    request.setRequestHeader('Client-ID', client_id);
+                  setRequestHeaders(request)
                 },
                 success : function (response) {
-                    self.userFollows = self.userFollows.concat(response.follows);
+                  self.userFollows = self.userFollows.concat(response.follows);
 
-                    if (response.follows.length === data.limit && self.userFollows.length < response._total) {
-                        data.offset += data.limit;
+                  if (response.follows.length === data.limit && self.userFollows.length < response._total) {
+                    data.offset += data.limit;
 
-                        follows();
+                    follows();
 
-                        return false;
-                    }
+                    return false;
+                  }
 
-                    self.streams = self.userFollows.map(function (follow) {
-                        return {
-                            name : follow.channel.name
-                        };
-                    });
+                  self.streams = self.userFollows.map(function (follow) {
+                    return {
+                      name : follow.channel.name
+                    };
+                  });
 
-                    $(document)
-                        .trigger('successGetUserFollows');
+                  $(document)
+                    .trigger('successGetUserFollows');
                 },
                 error : function () {
-                    $(document)
-                        .trigger('errorGetUserFollows');
+                  $(document)
+                    .trigger('errorGetUserFollows');
                 }
-            });
+              });
+            },
+            error : function () {
+              $(document)
+                .trigger('errorGetUserFollows');
+            }
+          });
         }());
     },
 
@@ -146,21 +191,35 @@ Twitch.prototype = {
             return false;
         }
 
-        $.ajax({
-            url : 'https://api.twitch.tv/kraken/channels/' + channel,
+      $.ajax({
+        url : 'https://api.twitch.tv/helix/users',
+        data : { login: channel },
+        type : 'GET',
+        beforeSend: function (request) {
+          setRequestHeaders(request)
+        },
+        success : function (response) {
+          $.ajax({
+            url : 'https://api.twitch.tv/kraken/channels/' + response.data[0].id,
             type : 'GET',
             beforeSend: function (request) {
-                request.setRequestHeader('Client-ID', client_id);
+              setRequestHeaders(request)
             },
             success : function () {
-                $(document)
-                    .trigger('successCheckChannel');
+              $(document)
+                .trigger('successCheckChannel');
             },
             error : function () {
-                $(document)
-                    .trigger('errorCheckChannel');
+              $(document)
+                .trigger('errorCheckChannel');
             }
-        });
+          });
+        },
+        error : function () {
+          $(document)
+            .trigger('errorCheckChannel');
+        }
+      });
     }
 
 };
