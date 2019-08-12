@@ -4,7 +4,7 @@
   "name" : "Twitch Live",
   "description" : "Watch Twitch.tv and receive notification when your favorite channel is online.",
 
-  "version" : "2.0.8",
+  "version" : "2.0.9",
 
   "icons" : {
     "16"  : "img/icons/16.png",

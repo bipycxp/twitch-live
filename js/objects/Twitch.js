@@ -76,11 +76,10 @@ Twitch.prototype = {
                 success : function (response) {
                   self.streams = self.streams.concat(response.streams);
 
-                  if (channels.length > self.streams.length) {
-                    offset += limit;
+                  offset += limit
 
+                  if (channels.length > offset) {
                     streams();
-
                     return false;
                   }
 
