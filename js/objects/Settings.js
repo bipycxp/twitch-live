@@ -156,7 +156,7 @@ Settings.prototype = {
                     self.message({
                         color : 'yellow',
                         icon : 'warning sign',
-                        text : 'Error',
+                        text : 'Channel exists',
                         tabName : 'addChannel'
                     });
                 } else {
@@ -205,7 +205,7 @@ Settings.prototype = {
                 if (event.description === 'noPushed') {
                     self.message({
                         color : 'yellow',
-                        text : 'Error',
+                        text : 'Not pushed',
                         tabName : 'importChannels'
                     });
                 } else {

@@ -33,7 +33,7 @@ var Background = function () {
 
     setInterval(function () {
         self.notification();
-    }, 5000);
+    }, 60 * 1000); // Each minutes.
 
     chrome.notifications.onClicked.addListener(function (id) {
         window.open('http://twitch.tv/' + id.replace(/^\d+\{tl\}/, ''));
